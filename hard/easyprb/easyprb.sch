@@ -17,8 +17,8 @@ $Comp
 L kicad_symbol_general:HC32L136K8TA_LQFP64 U?
 U 1 1 631D5DC1
 P 8480 5150
-F 0 "U?" H 10208 5196 50  0000 L CNN
-F 1 "HC32L136K8TA_LQFP64" H 10208 5105 50  0000 L CNB
+F 0 "U?" H 9325 6370 50  0000 L CNN
+F 1 "HC32L136K8TA_LQFP64" H 9325 6280 50  0000 L CNB
 F 2 "kicad_footprint_general:LQFP-64_10x10mm_P0.5mm" H 8580 6500 50  0001 C CNN
 F 3 "" H 8380 3950 50  0001 C CNN
 	1    8480 5150
@@ -105,4 +105,1879 @@ $EndComp
 Wire Wire Line
 	5700 4900 5700 4950
 Connection ~ 5700 4900
+$Comp
+L kicad_symbol_general:USB_C_Receptacle_14 J?
+U 1 1 631FF647
+P 1400 2170
+F 0 "J?" H 1507 3062 50  0000 C CNN
+F 1 "USB_C_Receptacle_14" H 1507 2971 50  0000 C CNN
+F 2 "" H 1550 2170 50  0001 C CNN
+F 3 "https://www.usb.org/sites/default/files/documents/usb_type-c.zip" H 1550 2170 50  0001 C CNN
+	1    1400 2170
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:CH340E U?
+U 1 1 632033F9
+P 3550 2305
+F 0 "U?" H 3550 2872 50  0000 C CNN
+F 1 "CH340E" H 3550 2781 50  0000 C CNN
+F 2 "" V 3210 1885 50  0001 L CNN
+F 3 "http://www.datasheet5.com/pdf-local-2195953" H 3200 3105 50  0001 C CNN
+	1    3550 2305
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:W25Q128JVS U?
+U 1 1 63203E2B
+P 7330 9150
+F 0 "U?" H 7330 9731 50  0000 C CNN
+F 1 "W25Q128JVS" H 7330 9640 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 7330 9150 50  0001 C CNN
+F 3 "http://www.winbond.com/resource-files/w25q128jv_dtr%20revc%2003272018%20plus.pdf" H 7330 9150 50  0001 C CNN
+	1    7330 9150
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:SP3485EN U?
+U 1 1 63205430
+P 13505 5515
+F 0 "U?" H 13265 5890 50  0000 C CNN
+F 1 "SP3485EN" H 13765 5870 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 14555 5165 50  0001 C CIN
+F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 13505 5515 50  0001 C CNN
+	1    13505 5515
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:SP3485EN U?
+U 1 1 63205DD2
+P 13525 3800
+F 0 "U?" H 13170 4325 50  0000 C CNN
+F 1 "SP3485EN" H 13280 4215 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 14575 3450 50  0001 C CIN
+F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 13525 3800 50  0001 C CNN
+	1    13525 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:Conn_01x02 J?
+U 1 1 6320724F
+P 14965 3700
+F 0 "J?" H 15045 3692 50  0000 L CNN
+F 1 "EPF" H 15045 3601 50  0000 L CNN
+F 2 "kicad_footprint_general:PhoenixContact_MCV_1,5_2-G-3.81_1x02_P3.81mm_Vertical" H 14965 3700 50  0001 C CNN
+F 3 "" H 14965 3700 50  0001 C CNN
+	1    14965 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:Q_NMOS_GSD Q?
+U 1 1 632079E8
+P 13895 2355
+F 0 "Q?" H 14101 2401 50  0000 L CNN
+F 1 "2N7002" H 14101 2310 50  0000 L CNN
+F 2 "kicad_footprint_general:SOT-23" H 14095 2455 50  0001 C CNN
+F 3 "" H 13895 2355 50  0001 C CNN
+	1    13895 2355
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 6320E24D
+P 13995 1855
+F 0 "R?" H 14063 1901 50  0000 L CNN
+F 1 "4.7k" H 14063 1810 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 13995 1855 50  0001 C CNN
+F 3 "" H 13995 1855 50  0001 C CNN
+	1    13995 1855
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13995 1955 13995 2055
+$Comp
+L power:VCC #PWR?
+U 1 1 63210789
+P 13995 1705
+F 0 "#PWR?" H 13995 1555 50  0001 C CNN
+F 1 "VCC" H 14012 1878 50  0000 C CNN
+F 2 "" H 13995 1705 50  0001 C CNN
+F 3 "" H 13995 1705 50  0001 C CNN
+	1    13995 1705
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13995 1705 13995 1755
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 632129DD
+P 14395 2055
+F 0 "R?" V 14190 2055 50  0000 C CNN
+F 1 "10R" V 14281 2055 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14395 2055 50  0001 C CNN
+F 3 "" H 14395 2055 50  0001 C CNN
+	1    14395 2055
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	14295 2055 13995 2055
+Connection ~ 13995 2055
+Wire Wire Line
+	13995 2055 13995 2155
+Wire Wire Line
+	14495 2055 14750 2055
+Text Label 14560 2055 0    50   ~ 0
+EPO
+$Comp
+L power:GND #PWR?
+U 1 1 63215CCF
+P 14540 2155
+F 0 "#PWR?" H 14540 1905 50  0001 C CNN
+F 1 "GND" H 14545 1982 50  0000 C CNN
+F 2 "" H 14540 2155 50  0001 C CNN
+F 3 "" H 14540 2155 50  0001 C CNN
+	1    14540 2155
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63216D8C
+P 13995 2655
+F 0 "#PWR?" H 13995 2405 50  0001 C CNN
+F 1 "GND" H 14000 2482 50  0000 C CNN
+F 2 "" H 13995 2655 50  0001 C CNN
+F 3 "" H 13995 2655 50  0001 C CNN
+	1    13995 2655
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13995 2555 13995 2655
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63219110
+P 13495 2355
+F 0 "R?" V 13290 2355 50  0000 C CNN
+F 1 "10R" V 13381 2355 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 13495 2355 50  0001 C CNN
+F 3 "" H 13495 2355 50  0001 C CNN
+	1    13495 2355
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	13595 2355 13695 2355
+Wire Wire Line
+	13395 2355 13195 2355
+Wire Wire Line
+	14540 2155 14750 2155
+$Comp
+L power:VCC #PWR?
+U 1 1 63220DFF
+P 13525 3350
+F 0 "#PWR?" H 13525 3200 50  0001 C CNN
+F 1 "VCC" H 13542 3523 50  0000 C CNN
+F 2 "" H 13525 3350 50  0001 C CNN
+F 3 "" H 13525 3350 50  0001 C CNN
+	1    13525 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13525 3350 13525 3400
+$Comp
+L power:GND #PWR?
+U 1 1 63221C41
+P 13525 4300
+F 0 "#PWR?" H 13525 4050 50  0001 C CNN
+F 1 "GND" H 13530 4127 50  0000 C CNN
+F 2 "" H 13525 4300 50  0001 C CNN
+F 3 "" H 13525 4300 50  0001 C CNN
+	1    13525 4300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13525 4200 13525 4300
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63222942
+P 14060 3490
+F 0 "R?" H 14128 3536 50  0000 L CNN
+F 1 "2.7k" H 14128 3445 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 14060 3490 50  0001 C CNN
+F 3 "" H 14060 3490 50  0001 C CNN
+	1    14060 3490
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 632232DF
+P 14460 3700
+F 0 "R?" V 14255 3700 50  0000 C CNN
+F 1 "10R" V 14346 3700 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14460 3700 50  0001 C CNN
+F 3 "" H 14460 3700 50  0001 C CNN
+	1    14460 3700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	14560 3700 14765 3700
+$Comp
+L power:GND #PWR?
+U 1 1 63226174
+P 14590 4005
+F 0 "#PWR?" H 14590 3755 50  0001 C CNN
+F 1 "GND" H 14595 3832 50  0000 C CNN
+F 2 "" H 14590 4005 50  0001 C CNN
+F 3 "" H 14590 4005 50  0001 C CNN
+	1    14590 4005
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14590 3800 14765 3800
+$Comp
+L power:VCC #PWR?
+U 1 1 632279F6
+P 14060 3350
+F 0 "#PWR?" H 14060 3200 50  0001 C CNN
+F 1 "VCC" H 14077 3523 50  0000 C CNN
+F 2 "" H 14060 3350 50  0001 C CNN
+F 3 "" H 14060 3350 50  0001 C CNN
+	1    14060 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14060 3350 14060 3390
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63228F48
+P 14060 4090
+F 0 "R?" H 14128 4136 50  0000 L CNN
+F 1 "10k" H 14128 4045 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 14060 4090 50  0001 C CNN
+F 3 "" H 14060 4090 50  0001 C CNN
+	1    14060 4090
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 632295A2
+P 14280 3900
+F 0 "R?" V 14190 3815 50  0000 C CNN
+F 1 "6.8k" V 14190 3955 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 14280 3900 50  0001 C CNN
+F 3 "" H 14280 3900 50  0001 C CNN
+	1    14280 3900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	14060 3990 14060 3900
+Wire Wire Line
+	13925 3900 14060 3900
+Connection ~ 14060 3900
+Wire Wire Line
+	14060 3900 14180 3900
+$Comp
+L power:VCC #PWR?
+U 1 1 6322C363
+P 14060 4230
+F 0 "#PWR?" H 14060 4080 50  0001 C CNN
+F 1 "VCC" H 14078 4403 50  0000 C CNN
+F 2 "" H 14060 4230 50  0001 C CNN
+F 3 "" H 14060 4230 50  0001 C CNN
+	1    14060 4230
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	14060 4190 14060 4230
+Wire Wire Line
+	14380 3900 14590 3900
+Wire Wire Line
+	14590 3800 14590 3900
+Connection ~ 14590 3900
+Wire Wire Line
+	14590 3900 14590 4005
+Wire Wire Line
+	13125 3900 13040 3900
+Wire Wire Line
+	13040 3900 13040 3805
+Wire Wire Line
+	13040 3700 13125 3700
+$Comp
+L power:GND #PWR?
+U 1 1 63233F06
+P 13000 3805
+F 0 "#PWR?" H 13000 3555 50  0001 C CNN
+F 1 "GND" H 13005 3632 50  0000 C CNN
+F 2 "" H 13000 3805 50  0001 C CNN
+F 3 "" H 13000 3805 50  0001 C CNN
+	1    13000 3805
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	13000 3805 13040 3805
+Connection ~ 13040 3805
+Wire Wire Line
+	13040 3805 13040 3700
+Wire Wire Line
+	12885 3600 13125 3600
+Text Label 14590 3700 0    50   ~ 0
+EPI
+Wire Wire Line
+	14060 3590 14060 3700
+Wire Wire Line
+	13925 3700 14060 3700
+Connection ~ 14060 3700
+Wire Wire Line
+	14060 3700 14360 3700
+$Comp
+L kicad_symbol_general:Conn_01x02 J?
+U 1 1 6320D348
+P 14950 2055
+F 0 "J?" H 15030 2047 50  0000 L CNN
+F 1 "TO EPF" H 15030 1956 50  0000 L CNN
+F 2 "kicad_footprint_general:PhoenixContact_MCV_1,5_2-G-3.81_1x02_P3.81mm_Vertical" H 14950 2055 50  0001 C CNN
+F 3 "" H 14950 2055 50  0001 C CNN
+	1    14950 2055
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63248D5A
+P 14295 5415
+F 0 "R?" V 14090 5415 50  0000 C CNN
+F 1 "10R" V 14181 5415 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14295 5415 50  0001 C CNN
+F 3 "" H 14295 5415 50  0001 C CNN
+	1    14295 5415
+	0    1    1    0   
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 632496C8
+P 14290 5615
+F 0 "R?" V 14370 5480 50  0000 C CNN
+F 1 "10R" V 14375 5620 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14290 5615 50  0001 C CNN
+F 3 "" H 14290 5615 50  0001 C CNN
+	1    14290 5615
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	14390 5615 14745 5615
+Wire Wire Line
+	14745 5715 14720 5715
+Wire Wire Line
+	14720 5715 14720 5750
+$Comp
+L power:GND #PWR?
+U 1 1 6324D965
+P 14720 5750
+F 0 "#PWR?" H 14720 5500 50  0001 C CNN
+F 1 "GND" H 14725 5577 50  0000 C CNN
+F 2 "" H 14720 5750 50  0001 C CNN
+F 3 "" H 14720 5750 50  0001 C CNN
+	1    14720 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63258595
+P 13505 6000
+F 0 "#PWR?" H 13505 5750 50  0001 C CNN
+F 1 "GND" H 13510 5827 50  0000 C CNN
+F 2 "" H 13505 6000 50  0001 C CNN
+F 3 "" H 13505 6000 50  0001 C CNN
+	1    13505 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 6325D170
+P 12970 5515
+F 0 "#PWR?" H 12970 5365 50  0001 C CNN
+F 1 "VCC" V 13025 5510 50  0000 L CNN
+F 2 "" H 12970 5515 50  0001 C CNN
+F 3 "" H 12970 5515 50  0001 C CNN
+	1    12970 5515
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	13105 5615 13045 5615
+Wire Wire Line
+	13045 5415 13105 5415
+Wire Wire Line
+	12970 5515 13045 5515
+Wire Wire Line
+	13045 5415 13045 5515
+Connection ~ 13045 5515
+Wire Wire Line
+	13045 5515 13045 5615
+Wire Wire Line
+	13105 5715 12900 5715
+$Comp
+L kicad_symbol_general:SP3485EN U?
+U 1 1 6328F65F
+P 13505 7160
+F 0 "U?" H 13265 7535 50  0000 C CNN
+F 1 "SP3485EN" H 13765 7515 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 14555 6810 50  0001 C CIN
+F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 13505 7160 50  0001 C CNN
+	1    13505 7160
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 6328F66B
+P 14440 7060
+F 0 "R?" V 14235 7060 50  0000 C CNN
+F 1 "10R" V 14326 7060 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14440 7060 50  0001 C CNN
+F 3 "" H 14440 7060 50  0001 C CNN
+	1    14440 7060
+	0    1    1    0   
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 6328F671
+P 14440 7260
+F 0 "R?" V 14520 7125 50  0000 C CNN
+F 1 "10R" V 14525 7265 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14440 7260 50  0001 C CNN
+F 3 "" H 14440 7260 50  0001 C CNN
+	1    14440 7260
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6328F67B
+P 14750 7410
+F 0 "#PWR?" H 14750 7160 50  0001 C CNN
+F 1 "GND" H 14880 7340 50  0000 C CNN
+F 2 "" H 14750 7410 50  0001 C CNN
+F 3 "" H 14750 7410 50  0001 C CNN
+	1    14750 7410
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 6328F681
+P 14005 7160
+F 0 "R?" H 13937 7114 50  0000 R CNN
+F 1 "NP" H 13937 7205 50  0000 R CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14005 7160 50  0001 C CNN
+F 3 "" H 14005 7160 50  0001 C CNN
+	1    14005 7160
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	13905 7060 14005 7060
+Wire Wire Line
+	13905 7260 14005 7260
+Connection ~ 14005 7260
+Connection ~ 14005 7060
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 6328F691
+P 14005 6905
+F 0 "R?" H 13937 6859 50  0000 R CNN
+F 1 "10k" H 13937 6950 50  0000 R CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14005 6905 50  0001 C CNN
+F 3 "" H 14005 6905 50  0001 C CNN
+	1    14005 6905
+	-1   0    0    1   
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 6328F697
+P 14005 7425
+F 0 "R?" H 13937 7379 50  0000 R CNN
+F 1 "10k" H 13937 7470 50  0000 R CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 14005 7425 50  0001 C CNN
+F 3 "" H 14005 7425 50  0001 C CNN
+	1    14005 7425
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	14005 7260 14005 7325
+Wire Wire Line
+	14005 7060 14005 7005
+$Comp
+L power:GND #PWR?
+U 1 1 6328F69F
+P 13505 7645
+F 0 "#PWR?" H 13505 7395 50  0001 C CNN
+F 1 "GND" H 13510 7472 50  0000 C CNN
+F 2 "" H 13505 7645 50  0001 C CNN
+F 3 "" H 13505 7645 50  0001 C CNN
+	1    13505 7645
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13505 7560 13505 7610
+Wire Wire Line
+	14005 7525 14005 7610
+Wire Wire Line
+	14005 7610 13505 7610
+Connection ~ 13505 7610
+Wire Wire Line
+	13505 7610 13505 7645
+Wire Wire Line
+	14005 6725 14005 6805
+Wire Wire Line
+	13505 6725 14005 6725
+Wire Wire Line
+	13505 6760 13505 6725
+Wire Wire Line
+	13505 6725 13505 6660
+Connection ~ 13505 6725
+Wire Wire Line
+	13105 7260 13045 7260
+Wire Wire Line
+	13045 7060 13105 7060
+$Comp
+L power:GND #PWR?
+U 1 1 6328F6B7
+P 12970 7160
+F 0 "#PWR?" H 12970 6910 50  0001 C CNN
+F 1 "GND" H 12975 6987 50  0000 C CNN
+F 2 "" H 12970 7160 50  0001 C CNN
+F 3 "" H 12970 7160 50  0001 C CNN
+	1    12970 7160
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	12970 7160 13045 7160
+Wire Wire Line
+	13045 7060 13045 7160
+Connection ~ 13045 7160
+Wire Wire Line
+	13045 7160 13045 7260
+Wire Wire Line
+	13105 6960 12900 6960
+Wire Wire Line
+	14750 7360 14750 7410
+Wire Wire Line
+	14540 7260 14750 7260
+$Comp
+L kicad_symbol_general:Conn_01x03 J?
+U 1 1 6328F665
+P 14950 7260
+F 0 "J?" H 15030 7302 50  0000 L CNN
+F 1 "RS485" H 15030 7211 50  0000 L CNN
+F 2 "" H 14950 7260 50  0001 C CNN
+F 3 "" H 14950 7260 50  0001 C CNN
+	1    14950 7260
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:SP3485EN U?
+U 1 1 632D36A1
+P 3175 8640
+F 0 "U?" H 3465 9120 50  0000 C CNN
+F 1 "SP3485EN" H 3515 9025 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4225 8290 50  0001 C CIN
+F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 3175 8640 50  0001 C CNN
+	1    3175 8640
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 632D36B4
+P 3175 9140
+F 0 "#PWR?" H 3175 8890 50  0001 C CNN
+F 1 "GND" H 3180 8967 50  0000 C CNN
+F 2 "" H 3175 9140 50  0001 C CNN
+F 3 "" H 3175 9140 50  0001 C CNN
+	1    3175 9140
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3175 9040 3175 9140
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 632D36BB
+P 2185 8330
+F 0 "R?" H 2253 8376 50  0000 L CNN
+F 1 "4.7k" H 2253 8285 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 2185 8330 50  0001 C CNN
+F 3 "" H 2185 8330 50  0001 C CNN
+	1    2185 8330
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 632D36CF
+P 2185 8190
+F 0 "#PWR?" H 2185 8040 50  0001 C CNN
+F 1 "VCC" H 2202 8363 50  0000 C CNN
+F 2 "" H 2185 8190 50  0001 C CNN
+F 3 "" H 2185 8190 50  0001 C CNN
+	1    2185 8190
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2185 8190 2185 8230
+Wire Wire Line
+	2185 8430 2185 8540
+Text Label 13195 2355 0    50   ~ 0
+EPF
+Text Label 12885 3600 0    50   ~ 0
+EPN
+$Comp
+L power:VCC #PWR?
+U 1 1 632E108D
+P 13505 5015
+F 0 "#PWR?" H 13505 4865 50  0001 C CNN
+F 1 "VCC" H 13522 5188 50  0000 C CNN
+F 2 "" H 13505 5015 50  0001 C CNN
+F 3 "" H 13505 5015 50  0001 C CNN
+	1    13505 5015
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13505 5915 13505 6000
+Wire Wire Line
+	13505 5015 13505 5115
+Wire Wire Line
+	13905 5615 14190 5615
+Wire Wire Line
+	13905 5415 14195 5415
+Wire Wire Line
+	14395 5415 14745 5415
+Wire Wire Line
+	14745 5415 14745 5515
+Wire Wire Line
+	14005 7260 14340 7260
+Wire Wire Line
+	14540 7060 14725 7060
+Wire Wire Line
+	14725 7060 14725 7160
+Wire Wire Line
+	14725 7160 14750 7160
+Wire Wire Line
+	14005 7060 14340 7060
+$Comp
+L kicad_symbol_general:Conn_01x03 J?
+U 1 1 632067B9
+P 14945 5615
+F 0 "J?" H 15025 5657 50  0000 L CNN
+F 1 "Conn_01x03" H 15025 5566 50  0000 L CNN
+F 2 "" H 14945 5615 50  0001 C CNN
+F 3 "" H 14945 5615 50  0001 C CNN
+	1    14945 5615
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:LM1117-3.3 U?
+U 1 1 6334692C
+P 8935 1480
+F 0 "U?" H 8935 1722 50  0000 C CNN
+F 1 "LM1117-3.3" H 8935 1631 50  0000 C CNN
+F 2 "kicad_footprint_general:SOT-223" H 8935 1680 50  0001 C CNN
+F 3 "" H 9035 1230 50  0001 C CNN
+	1    8935 1480
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:1N5817 D?
+U 1 1 6334876F
+P 7420 1480
+F 0 "D?" H 7420 1264 50  0000 C CNN
+F 1 "SS14" H 7420 1355 50  0000 C CNN
+F 2 "kicad_footprint_general:D_SMA" H 7420 1305 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 7420 1480 50  0001 C CNN
+	1    7420 1480
+	-1   0    0    1   
+$EndComp
+$Comp
+L kicad_symbol_general:1N5817 D?
+U 1 1 633498F1
+P 7420 1840
+F 0 "D?" H 7420 1624 50  0000 C CNN
+F 1 "SS14" H 7420 1715 50  0000 C CNN
+F 2 "kicad_footprint_general:D_SMA" H 7420 1665 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 7420 1840 50  0001 C CNN
+	1    7420 1840
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8635 1480 8420 1480
+Wire Wire Line
+	9235 1580 9300 1580
+Wire Wire Line
+	9300 1580 9300 1480
+Wire Wire Line
+	9300 1480 9235 1480
+Wire Wire Line
+	9300 1480 9465 1480
+Connection ~ 9300 1480
+$Comp
+L kicad_symbol_general:CP_Small C?
+U 1 1 63360030
+P 7950 1745
+F 0 "C?" H 8038 1791 50  0000 L CNN
+F 1 "CP_Small" H 8038 1700 50  0000 L CNN
+F 2 "" H 7950 1745 50  0001 C CNN
+F 3 "" H 7950 1745 50  0001 C CNN
+	1    7950 1745
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 6336048D
+P 8420 1740
+F 0 "C?" H 8512 1786 50  0000 L CNN
+F 1 "C_Small" H 8512 1695 50  0000 L CNN
+F 2 "" H 8420 1740 50  0001 C CNN
+F 3 "" H 8420 1740 50  0001 C CNN
+	1    8420 1740
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:CP_Small C?
+U 1 1 6336115B
+P 9465 1725
+F 0 "C?" H 9553 1771 50  0000 L CNN
+F 1 "CP_Small" H 9553 1680 50  0000 L CNN
+F 2 "" H 9465 1725 50  0001 C CNN
+F 3 "" H 9465 1725 50  0001 C CNN
+	1    9465 1725
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63361F12
+P 9805 1725
+F 0 "C?" H 9897 1771 50  0000 L CNN
+F 1 "C_Small" H 9897 1680 50  0000 L CNN
+F 2 "" H 9805 1725 50  0001 C CNN
+F 3 "" H 9805 1725 50  0001 C CNN
+	1    9805 1725
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63362213
+P 10035 1725
+F 0 "C?" H 10127 1771 50  0000 L CNN
+F 1 "C_Small" H 10127 1680 50  0000 L CNN
+F 2 "" H 10035 1725 50  0001 C CNN
+F 3 "" H 10035 1725 50  0001 C CNN
+	1    10035 1725
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 633623CF
+P 8215 1745
+F 0 "C?" H 8307 1791 50  0000 L CNN
+F 1 "C_Small" H 8307 1700 50  0000 L CNN
+F 2 "" H 8215 1745 50  0001 C CNN
+F 3 "" H 8215 1745 50  0001 C CNN
+	1    8215 1745
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8935 1780 8935 2000
+Wire Wire Line
+	7900 2000 7950 2000
+Connection ~ 8935 2000
+$Comp
+L power:GND #PWR?
+U 1 1 6336B6B0
+P 7900 2135
+F 0 "#PWR?" H 7900 1885 50  0001 C CNN
+F 1 "GND" H 7905 1962 50  0000 C CNN
+F 2 "" H 7900 2135 50  0001 C CNN
+F 3 "" H 7900 2135 50  0001 C CNN
+	1    7900 2135
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 2135 7900 2000
+Wire Wire Line
+	7950 1480 7950 1645
+Connection ~ 7950 1480
+Wire Wire Line
+	7950 1480 7750 1480
+Wire Wire Line
+	7950 1845 7950 2000
+Connection ~ 7950 2000
+Wire Wire Line
+	7950 2000 8215 2000
+Wire Wire Line
+	8215 1645 8215 1480
+Connection ~ 8215 1480
+Wire Wire Line
+	8215 1480 7950 1480
+Wire Wire Line
+	8215 1845 8215 2000
+Connection ~ 8215 2000
+Wire Wire Line
+	8215 2000 8420 2000
+Wire Wire Line
+	8420 1640 8420 1480
+Connection ~ 8420 1480
+Wire Wire Line
+	8420 1480 8215 1480
+Wire Wire Line
+	8420 1840 8420 2000
+Connection ~ 8420 2000
+Wire Wire Line
+	8420 2000 8935 2000
+Wire Wire Line
+	9465 1625 9465 1480
+Connection ~ 9465 1480
+Wire Wire Line
+	9465 1480 9805 1480
+Wire Wire Line
+	9465 1825 9465 2000
+Wire Wire Line
+	8935 2000 9465 2000
+Connection ~ 9465 2000
+Wire Wire Line
+	9465 2000 9805 2000
+Wire Wire Line
+	9805 1625 9805 1480
+Connection ~ 9805 1480
+Wire Wire Line
+	9805 1825 9805 2000
+Connection ~ 9805 2000
+Wire Wire Line
+	10035 1825 10035 2000
+Wire Wire Line
+	9805 2000 10035 2000
+Wire Wire Line
+	10035 1480 10035 1625
+Wire Wire Line
+	9805 1480 10035 1480
+Wire Wire Line
+	7270 1480 7000 1480
+Wire Wire Line
+	7570 1840 7750 1840
+Wire Wire Line
+	7750 1840 7750 1480
+Connection ~ 7750 1480
+Wire Wire Line
+	7750 1480 7570 1480
+Wire Wire Line
+	7270 1840 7000 1840
+$Comp
+L power:VCC #PWR?
+U 1 1 633E56E0
+P 10035 1445
+F 0 "#PWR?" H 10035 1295 50  0001 C CNN
+F 1 "VCC" H 10052 1618 50  0000 C CNN
+F 2 "" H 10035 1445 50  0001 C CNN
+F 3 "" H 10035 1445 50  0001 C CNN
+	1    10035 1445
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10035 1445 10035 1480
+Connection ~ 10035 1480
+Text Label 7000 1480 0    50   ~ 0
+VUA
+Text Label 7000 1840 0    50   ~ 0
+VUB
+Wire Wire Line
+	2000 1670 2050 1670
+Wire Wire Line
+	2000 1570 2050 1570
+Wire Wire Line
+	2050 1570 2050 1670
+Connection ~ 2050 1670
+Wire Wire Line
+	2050 1670 2275 1670
+Text Label 2275 1670 2    50   ~ 0
+D1-
+Wire Wire Line
+	2000 1870 2050 1870
+Wire Wire Line
+	2000 1770 2050 1770
+Wire Wire Line
+	2050 1770 2050 1870
+Connection ~ 2050 1870
+Wire Wire Line
+	2050 1870 2275 1870
+Text Label 2275 1870 2    50   ~ 0
+D1+
+NoConn ~ 2000 1970
+NoConn ~ 2000 2070
+Wire Wire Line
+	2000 2470 2035 2470
+Wire Wire Line
+	2000 2170 2035 2170
+Wire Wire Line
+	2035 2170 2035 2270
+Connection ~ 2035 2470
+Wire Wire Line
+	2035 2470 2225 2470
+Wire Wire Line
+	2000 2370 2035 2370
+Connection ~ 2035 2370
+Wire Wire Line
+	2035 2370 2035 2470
+Wire Wire Line
+	2000 2270 2035 2270
+Connection ~ 2035 2270
+Wire Wire Line
+	2035 2270 2035 2370
+Text Label 2225 2470 2    50   ~ 0
+VUA
+Wire Wire Line
+	1100 3195 1100 3225
+Wire Wire Line
+	1100 3225 1225 3225
+Wire Wire Line
+	2040 2670 2000 2670
+Wire Wire Line
+	2000 2770 2040 2770
+Wire Wire Line
+	2040 2670 2040 2770
+Connection ~ 2040 2770
+Wire Wire Line
+	2040 2770 2040 2870
+Wire Wire Line
+	2000 2870 2040 2870
+Connection ~ 2040 2870
+Wire Wire Line
+	2040 2870 2040 3225
+Wire Wire Line
+	1225 3195 1225 3225
+Connection ~ 1225 3225
+Wire Wire Line
+	1225 3225 1350 3225
+Wire Wire Line
+	1350 3195 1350 3225
+Connection ~ 1350 3225
+Wire Wire Line
+	1350 3225 1475 3225
+Wire Wire Line
+	1475 3195 1475 3225
+Connection ~ 1475 3225
+Wire Wire Line
+	1475 3225 2040 3225
+Wire Wire Line
+	2000 2570 2040 2570
+Wire Wire Line
+	2040 2570 2040 2670
+Connection ~ 2040 2670
+Wire Wire Line
+	2040 2570 2225 2570
+Connection ~ 2040 2570
+Text Label 2225 2570 2    50   ~ 0
+GND
+Wire Wire Line
+	3150 2105 3095 2105
+Wire Wire Line
+	3095 2105 3095 2005
+Wire Wire Line
+	3095 2005 3150 2005
+Wire Wire Line
+	3150 2455 2945 2455
+Wire Wire Line
+	3150 2605 2945 2605
+Text Label 2945 2455 0    50   ~ 0
+D1+
+Text Label 2945 2605 0    50   ~ 0
+D1-
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 634F4110
+P 2720 2125
+F 0 "C?" H 2520 2130 50  0000 L CNN
+F 1 "1uF" H 2520 2050 50  0000 L CNN
+F 2 "" H 2720 2125 50  0001 C CNN
+F 3 "" H 2720 2125 50  0001 C CNN
+	1    2720 2125
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 634FFCA8
+P 2915 2125
+F 0 "C?" H 2940 2185 50  0000 L CNN
+F 1 "100nF" H 2940 2060 50  0000 L CNN
+F 2 "" H 2915 2125 50  0001 C CNN
+F 3 "" H 2915 2125 50  0001 C CNN
+	1    2915 2125
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3095 2005 2915 2005
+Wire Wire Line
+	2720 2005 2720 2025
+Connection ~ 3095 2005
+Wire Wire Line
+	2915 2025 2915 2005
+Connection ~ 2915 2005
+Wire Wire Line
+	2915 2005 2720 2005
+Wire Wire Line
+	2915 2225 2915 2255
+Wire Wire Line
+	2720 2255 2915 2255
+Connection ~ 2915 2255
+Wire Wire Line
+	2915 2255 3150 2255
+Wire Wire Line
+	2720 2225 2720 2255
+$Comp
+L power:GND #PWR?
+U 1 1 63536715
+P 2720 2285
+F 0 "#PWR?" H 2720 2035 50  0001 C CNN
+F 1 "GND" H 2720 2145 50  0000 C CNN
+F 2 "" H 2720 2285 50  0001 C CNN
+F 3 "" H 2720 2285 50  0001 C CNN
+	1    2720 2285
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2720 2285 2720 2255
+Connection ~ 2720 2255
+$Comp
+L power:VCC #PWR?
+U 1 1 63542906
+P 2720 1975
+F 0 "#PWR?" H 2720 1825 50  0001 C CNN
+F 1 "VCC" H 2720 2115 50  0000 C CNN
+F 2 "" H 2720 1975 50  0001 C CNN
+F 3 "" H 2720 1975 50  0001 C CNN
+	1    2720 1975
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2720 1975 2720 2005
+Connection ~ 2720 2005
+NoConn ~ 3950 2055
+NoConn ~ 3950 2505
+NoConn ~ 3950 2605
+$Comp
+L kicad_symbol_general:USB_C_Receptacle_14 J?
+U 1 1 635CC598
+P 1395 4655
+F 0 "J?" H 1502 5547 50  0000 C CNN
+F 1 "USB_C_Receptacle_14" H 1502 5456 50  0000 C CNN
+F 2 "" H 1545 4655 50  0001 C CNN
+F 3 "https://www.usb.org/sites/default/files/documents/usb_type-c.zip" H 1545 4655 50  0001 C CNN
+	1    1395 4655
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1995 4155 2045 4155
+Wire Wire Line
+	1995 4055 2045 4055
+Wire Wire Line
+	2045 4055 2045 4155
+Connection ~ 2045 4155
+Wire Wire Line
+	2045 4155 2270 4155
+Text Label 2270 4155 2    50   ~ 0
+D2-
+Wire Wire Line
+	1995 4355 2045 4355
+Wire Wire Line
+	1995 4255 2045 4255
+Wire Wire Line
+	2045 4255 2045 4355
+Connection ~ 2045 4355
+Wire Wire Line
+	2045 4355 2270 4355
+Text Label 2270 4355 2    50   ~ 0
+D2+
+NoConn ~ 1995 4455
+NoConn ~ 1995 4555
+Wire Wire Line
+	1995 4955 2030 4955
+Wire Wire Line
+	1995 4655 2030 4655
+Wire Wire Line
+	2030 4655 2030 4755
+Connection ~ 2030 4955
+Wire Wire Line
+	2030 4955 2220 4955
+Wire Wire Line
+	1995 4855 2030 4855
+Connection ~ 2030 4855
+Wire Wire Line
+	2030 4855 2030 4955
+Wire Wire Line
+	1995 4755 2030 4755
+Connection ~ 2030 4755
+Wire Wire Line
+	2030 4755 2030 4855
+Text Label 2220 4955 2    50   ~ 0
+VUB
+Wire Wire Line
+	1095 5680 1095 5710
+Wire Wire Line
+	1095 5710 1220 5710
+Wire Wire Line
+	2035 5155 1995 5155
+Wire Wire Line
+	1995 5255 2035 5255
+Wire Wire Line
+	2035 5155 2035 5255
+Connection ~ 2035 5255
+Wire Wire Line
+	2035 5255 2035 5355
+Wire Wire Line
+	1995 5355 2035 5355
+Connection ~ 2035 5355
+Wire Wire Line
+	2035 5355 2035 5710
+Wire Wire Line
+	1220 5680 1220 5710
+Connection ~ 1220 5710
+Wire Wire Line
+	1220 5710 1345 5710
+Wire Wire Line
+	1345 5680 1345 5710
+Connection ~ 1345 5710
+Wire Wire Line
+	1345 5710 1470 5710
+Wire Wire Line
+	1470 5680 1470 5710
+Connection ~ 1470 5710
+Wire Wire Line
+	1470 5710 2035 5710
+Wire Wire Line
+	1995 5055 2035 5055
+Wire Wire Line
+	2035 5055 2035 5155
+Connection ~ 2035 5155
+Wire Wire Line
+	2035 5055 2220 5055
+Connection ~ 2035 5055
+Text Label 2220 5055 2    50   ~ 0
+GND
+$Comp
+L kicad_symbol_general:CH340E U?
+U 1 1 635DE4E8
+P 3585 4635
+F 0 "U?" H 3585 5202 50  0000 C CNN
+F 1 "CH340E" H 3585 5111 50  0000 C CNN
+F 2 "" V 3245 4215 50  0001 L CNN
+F 3 "http://www.datasheet5.com/pdf-local-2195953" H 3235 5435 50  0001 C CNN
+	1    3585 4635
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3185 4435 3130 4435
+Wire Wire Line
+	3130 4435 3130 4335
+Wire Wire Line
+	3130 4335 3185 4335
+Wire Wire Line
+	3185 4785 2980 4785
+Wire Wire Line
+	3185 4935 2980 4935
+Text Label 2980 4785 0    50   ~ 0
+D2+
+Text Label 2980 4935 0    50   ~ 0
+D2-
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 635DE4F5
+P 2755 4455
+F 0 "C?" H 2555 4460 50  0000 L CNN
+F 1 "1uF" H 2555 4380 50  0000 L CNN
+F 2 "" H 2755 4455 50  0001 C CNN
+F 3 "" H 2755 4455 50  0001 C CNN
+	1    2755 4455
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 635DE4FB
+P 2950 4455
+F 0 "C?" H 2975 4515 50  0000 L CNN
+F 1 "100nF" H 2975 4390 50  0000 L CNN
+F 2 "" H 2950 4455 50  0001 C CNN
+F 3 "" H 2950 4455 50  0001 C CNN
+	1    2950 4455
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3130 4335 2950 4335
+Wire Wire Line
+	2755 4335 2755 4355
+Connection ~ 3130 4335
+Wire Wire Line
+	2950 4355 2950 4335
+Connection ~ 2950 4335
+Wire Wire Line
+	2950 4335 2755 4335
+Wire Wire Line
+	2950 4555 2950 4585
+Wire Wire Line
+	2755 4585 2950 4585
+Connection ~ 2950 4585
+Wire Wire Line
+	2950 4585 3185 4585
+Wire Wire Line
+	2755 4555 2755 4585
+$Comp
+L power:GND #PWR?
+U 1 1 635DE50C
+P 2755 4615
+F 0 "#PWR?" H 2755 4365 50  0001 C CNN
+F 1 "GND" H 2755 4475 50  0000 C CNN
+F 2 "" H 2755 4615 50  0001 C CNN
+F 3 "" H 2755 4615 50  0001 C CNN
+	1    2755 4615
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2755 4615 2755 4585
+Connection ~ 2755 4585
+$Comp
+L power:VCC #PWR?
+U 1 1 635DE514
+P 2755 4305
+F 0 "#PWR?" H 2755 4155 50  0001 C CNN
+F 1 "VCC" H 2755 4445 50  0000 C CNN
+F 2 "" H 2755 4305 50  0001 C CNN
+F 3 "" H 2755 4305 50  0001 C CNN
+	1    2755 4305
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2755 4305 2755 4335
+Connection ~ 2755 4335
+NoConn ~ 3985 4385
+NoConn ~ 3985 4835
+NoConn ~ 3985 4935
+Wire Wire Line
+	3985 4485 4180 4485
+Wire Wire Line
+	3985 4585 4180 4585
+Text Label 4180 4485 2    50   ~ 0
+TX2
+$Comp
+L kicad_symbol_general:74LVC1G86 U?
+U 1 1 635F1C8B
+P 4055 8150
+F 0 "U?" H 4030 8417 50  0000 C CNN
+F 1 "74LVC1G86" H 4030 8326 50  0000 C CNN
+F 2 "" H 4055 8150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4055 8150 50  0001 C CNN
+	1    4055 8150
+	1    0    0    -1  
+$EndComp
+Text Label 4180 4585 2    50   ~ 0
+RX2
+Wire Wire Line
+	3950 2255 4145 2255
+Text Label 4145 2155 2    50   ~ 0
+TX1
+Wire Wire Line
+	3950 2155 4145 2155
+Text Label 4145 2255 2    50   ~ 0
+RX1
+$Comp
+L kicad_symbol_general:Conn_01x03 J?
+U 1 1 63640DFA
+P 1075 8740
+F 0 "J?" H 993 9057 50  0000 C CNN
+F 1 "RS485" H 993 8966 50  0000 C CNN
+F 2 "" H 1075 8740 50  0001 C CNN
+F 3 "" H 1075 8740 50  0001 C CNN
+	1    1075 8740
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3575 8440 3845 8440
+Text Label 3845 8440 2    50   ~ 0
+RX3
+Wire Wire Line
+	3575 8540 3850 8540
+Text Label 3850 8540 2    50   ~ 0
+GND
+Wire Wire Line
+	3575 8840 3850 8840
+Text Label 3850 8840 2    50   ~ 0
+TX3
+Wire Wire Line
+	3575 8740 3850 8740
+Text Label 3715 8740 0    50   ~ 0
+TEN
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 636CADB6
+P 3950 8740
+F 0 "R?" V 3745 8740 50  0000 C CNN
+F 1 "4.7k" V 3836 8740 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 3950 8740 50  0001 C CNN
+F 3 "" H 3950 8740 50  0001 C CNN
+	1    3950 8740
+	0    1    1    0   
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 636CB916
+P 4250 8740
+F 0 "R?" V 4045 8740 50  0000 C CNN
+F 1 "4.7k" V 4136 8740 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 4250 8740 50  0001 C CNN
+F 3 "" H 4250 8740 50  0001 C CNN
+	1    4250 8740
+	0    1    1    0   
+$EndComp
+$Comp
+L kicad_symbol_general:Q_NPN_BEC Q?
+U 1 1 636CC811
+P 4200 9000
+F 0 "Q?" H 4391 9046 50  0000 L CNN
+F 1 "Q_NPN_BEC" H 4391 8955 50  0000 L CNN
+F 2 "kicad_footprint_general:SOT-23" H 4400 9100 50  0001 C CNN
+F 3 "" H 4200 9000 50  0001 C CNN
+	1    4200 9000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 8740 4100 8740
+Wire Wire Line
+	4100 8800 4100 8740
+Connection ~ 4100 8740
+Wire Wire Line
+	4100 8740 4150 8740
+$Comp
+L power:GND #PWR?
+U 1 1 6371E5E3
+P 4100 9245
+F 0 "#PWR?" H 4100 8995 50  0001 C CNN
+F 1 "GND" H 4100 9105 50  0000 C CNN
+F 2 "" H 4100 9245 50  0001 C CNN
+F 3 "" H 4100 9245 50  0001 C CNN
+	1    4100 9245
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4100 9200 4100 9245
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63733498
+P 4550 9000
+F 0 "R?" V 4345 9000 50  0000 C CNN
+F 1 "4.7k" V 4436 9000 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 4550 9000 50  0001 C CNN
+F 3 "" H 4550 9000 50  0001 C CNN
+	1    4550 9000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4400 9000 4450 9000
+Wire Wire Line
+	4650 9000 4800 9000
+Text Label 4800 9000 2    50   ~ 0
+TX3
+$Comp
+L power:VCC #PWR?
+U 1 1 6375CE44
+P 4395 8740
+F 0 "#PWR?" H 4395 8590 50  0001 C CNN
+F 1 "VCC" V 4325 8740 50  0000 L CNN
+F 2 "" H 4395 8740 50  0001 C CNN
+F 3 "" H 4395 8740 50  0001 C CNN
+	1    4395 8740
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4350 8740 4395 8740
+Wire Wire Line
+	3755 8100 3605 8100
+Wire Wire Line
+	3755 8200 3605 8200
+Text Label 3605 8100 0    50   ~ 0
+RX3
+Text Label 3605 8200 0    50   ~ 0
+TX3
+Wire Wire Line
+	4305 8150 4500 8150
+Text Label 4500 8150 2    50   ~ 0
+CFT
+$Comp
+L power:VCC #PWR?
+U 1 1 6328F6AB
+P 13505 6660
+F 0 "#PWR?" H 13505 6510 50  0001 C CNN
+F 1 "VCC" H 13522 6833 50  0000 C CNN
+F 2 "" H 13505 6660 50  0001 C CNN
+F 3 "" H 13505 6660 50  0001 C CNN
+	1    13505 6660
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 638182DF
+P 3175 8165
+F 0 "#PWR?" H 3175 8015 50  0001 C CNN
+F 1 "VCC" H 3192 8338 50  0000 C CNN
+F 2 "" H 3175 8165 50  0001 C CNN
+F 3 "" H 3175 8165 50  0001 C CNN
+	1    3175 8165
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3175 8240 3175 8165
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 638409BE
+P 2185 8640
+F 0 "R?" H 2117 8594 50  0000 R CNN
+F 1 "470R" H 2117 8685 50  0000 R CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 2185 8640 50  0001 C CNN
+F 3 "" H 2185 8640 50  0001 C CNN
+	1    2185 8640
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2775 8740 2185 8740
+Wire Wire Line
+	2775 8540 2185 8540
+Connection ~ 2185 8740
+Wire Wire Line
+	2185 8740 1700 8740
+Connection ~ 2185 8540
+Wire Wire Line
+	2185 8540 1705 8540
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63896B30
+P 2185 8950
+F 0 "R?" H 2253 8996 50  0000 L CNN
+F 1 "4.7k" H 2253 8905 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 2185 8950 50  0001 C CNN
+F 3 "" H 2185 8950 50  0001 C CNN
+	1    2185 8950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2185 8740 2185 8850
+$Comp
+L power:GND #PWR?
+U 1 1 638ACC31
+P 2185 9100
+F 0 "#PWR?" H 2185 8850 50  0001 C CNN
+F 1 "GND" H 2190 8927 50  0000 C CNN
+F 2 "" H 2185 9100 50  0001 C CNN
+F 3 "" H 2185 9100 50  0001 C CNN
+	1    2185 9100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2185 9050 2185 9100
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 638C2303
+P 1600 8740
+F 0 "R?" V 1695 8675 50  0000 C CNN
+F 1 "10R" V 1690 8805 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 1600 8740 50  0001 C CNN
+F 3 "" H 1600 8740 50  0001 C CNN
+	1    1600 8740
+	0    1    1    0   
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 638C2CD1
+P 1605 8540
+F 0 "R?" V 1400 8540 50  0000 C CNN
+F 1 "10R" V 1491 8540 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0805_2012Metric" H 1605 8540 50  0001 C CNN
+F 3 "" H 1605 8540 50  0001 C CNN
+	1    1605 8540
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1275 8740 1500 8740
+Wire Wire Line
+	1275 8640 1275 8540
+Wire Wire Line
+	1275 8540 1505 8540
+$Comp
+L kicad_symbol_general:Conn_01x05 J?
+U 1 1 639490F4
+P 5120 3400
+F 0 "J?" H 5038 3817 50  0000 C CNN
+F 1 "Conn_01x05" H 5038 3726 50  0000 C CNN
+F 2 "" H 5120 3400 50  0001 C CNN
+F 3 "~" H 5120 3400 50  0001 C CNN
+	1    5120 3400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6830 5000 6600 5000
+Text Label 6600 5000 0    50   ~ 0
+RST
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 6395FDEF
+P 6480 4245
+F 0 "C?" H 6605 4315 50  0000 C CNN
+F 1 "10uF" H 6655 4230 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0805_2012Metric" H 6480 4245 50  0001 C CNN
+F 3 "" H 6480 4245 50  0001 C CNN
+	1    6480 4245
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63960537
+P 6185 4245
+F 0 "C?" H 6270 4315 50  0000 C CNN
+F 1 "1uF" H 6295 4175 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0603_1608Metric" H 6185 4245 50  0001 C CNN
+F 3 "" H 6185 4245 50  0001 C CNN
+	1    6185 4245
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 639607B1
+P 5850 4250
+F 0 "C?" H 5930 4320 50  0000 C CNN
+F 1 "100nF" H 6000 4180 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0603_1608Metric" H 5850 4250 50  0001 C CNN
+F 3 "" H 5850 4250 50  0001 C CNN
+	1    5850 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5850 4350 5850 4400
+Wire Wire Line
+	5850 4400 6185 4400
+Wire Wire Line
+	6185 4345 6185 4400
+Connection ~ 6185 4400
+Wire Wire Line
+	6185 4400 6480 4400
+Wire Wire Line
+	6480 4345 6480 4400
+Connection ~ 6480 4400
+Wire Wire Line
+	6480 4400 6830 4400
+Wire Wire Line
+	5850 4150 5850 4100
+Wire Wire Line
+	6480 4100 6480 4145
+Wire Wire Line
+	6185 4145 6185 4100
+Wire Wire Line
+	5850 4100 6185 4100
+Connection ~ 6185 4100
+Wire Wire Line
+	6185 4100 6480 4100
+$Comp
+L power:GND #PWR?
+U 1 1 63A0E5E8
+P 5850 4100
+F 0 "#PWR?" H 5850 3850 50  0001 C CNN
+F 1 "GND" H 5850 3960 50  0000 C CNN
+F 2 "" H 5850 4100 50  0001 C CNN
+F 3 "" H 5850 4100 50  0001 C CNN
+	1    5850 4100
+	-1   0    0    1   
+$EndComp
+Connection ~ 5850 4100
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63A26F6B
+P 7500 3650
+F 0 "C?" H 7580 3720 50  0000 C CNN
+F 1 "100nF" H 7650 3580 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0603_1608Metric" H 7500 3650 50  0001 C CNN
+F 3 "" H 7500 3650 50  0001 C CNN
+	1    7500 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63A273E5
+P 7200 3650
+F 0 "C?" H 7285 3720 50  0000 C CNN
+F 1 "4.7uF" H 7310 3580 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0603_1608Metric" H 7200 3650 50  0001 C CNN
+F 3 "" H 7200 3650 50  0001 C CNN
+	1    7200 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7730 3900 7730 3835
+Wire Wire Line
+	7730 3835 7500 3835
+Wire Wire Line
+	7830 3900 7830 3495
+Wire Wire Line
+	7500 3550 7500 3495
+Connection ~ 7500 3495
+Wire Wire Line
+	7500 3495 7830 3495
+Wire Wire Line
+	7200 3550 7200 3495
+Wire Wire Line
+	7090 3495 7200 3495
+Connection ~ 7200 3495
+Wire Wire Line
+	7200 3495 7500 3495
+Wire Wire Line
+	7500 3750 7500 3835
+Connection ~ 7500 3835
+Wire Wire Line
+	7200 3750 7200 3835
+Wire Wire Line
+	6995 3835 7200 3835
+Connection ~ 7200 3835
+Wire Wire Line
+	7200 3835 7500 3835
+$Comp
+L power:GND #PWR?
+U 1 1 63AB7077
+P 7090 3495
+F 0 "#PWR?" H 7090 3245 50  0001 C CNN
+F 1 "GND" H 7090 3355 50  0000 C CNN
+F 2 "" H 7090 3495 50  0001 C CNN
+F 3 "" H 7090 3495 50  0001 C CNN
+	1    7090 3495
+	0    1    1    0   
+$EndComp
+Text Label 6995 3835 0    50   ~ 0
+VCC
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63AE8351
+P 9475 6585
+F 0 "C?" H 9560 6655 50  0000 C CNN
+F 1 "4.7uF" H 9585 6515 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0603_1608Metric" H 9475 6585 50  0001 C CNN
+F 3 "" H 9475 6585 50  0001 C CNN
+	1    9475 6585
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63AE8815
+P 9730 6585
+F 0 "C?" H 9810 6655 50  0000 C CNN
+F 1 "100nF" H 9880 6515 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0603_1608Metric" H 9730 6585 50  0001 C CNN
+F 3 "" H 9730 6585 50  0001 C CNN
+	1    9730 6585
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9230 6400 9230 6450
+Wire Wire Line
+	9230 6450 9475 6450
+Wire Wire Line
+	9130 6400 9130 6720
+Wire Wire Line
+	9730 6720 9730 6685
+Wire Wire Line
+	9475 6685 9475 6720
+Wire Wire Line
+	9130 6720 9475 6720
+Connection ~ 9475 6720
+Wire Wire Line
+	9475 6720 9730 6720
+Wire Wire Line
+	9475 6485 9475 6450
+Connection ~ 9475 6450
+Wire Wire Line
+	9730 6485 9730 6450
+Wire Wire Line
+	9475 6450 9730 6450
+Connection ~ 9730 6450
+Wire Wire Line
+	9730 6450 9950 6450
+$Comp
+L power:GND #PWR?
+U 1 1 63B671F6
+P 9730 6720
+F 0 "#PWR?" H 9730 6470 50  0001 C CNN
+F 1 "GND" H 9735 6547 50  0000 C CNN
+F 2 "" H 9730 6720 50  0001 C CNN
+F 3 "" H 9730 6720 50  0001 C CNN
+	1    9730 6720
+	1    0    0    -1  
+$EndComp
+Connection ~ 9730 6720
+Text Label 9950 6450 2    50   ~ 0
+VCC
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63B9A291
+P 5725 2800
+F 0 "R?" H 5793 2846 50  0000 L CNN
+F 1 "10k" H 5793 2755 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 5725 2800 50  0001 C CNN
+F 3 "" H 5725 2800 50  0001 C CNN
+	1    5725 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63BB4D88
+P 5585 3200
+F 0 "R?" V 5380 3200 50  0000 C CNN
+F 1 "10k" V 5471 3200 50  0000 C CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 5585 3200 50  0001 C CNN
+F 3 "" H 5585 3200 50  0001 C CNN
+	1    5585 3200
+	0    1    1    0   
+$EndComp
+$Comp
+L kicad_symbol_general:C_Small C?
+U 1 1 63BCE849
+P 5555 2945
+F 0 "C?" H 5635 3015 50  0000 C CNN
+F 1 "100nF" H 5705 2875 50  0000 C CNN
+F 2 "kicad_footprint_general:C_0603_1608Metric" H 5555 2945 50  0001 C CNN
+F 3 "" H 5555 2945 50  0001 C CNN
+	1    5555 2945
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5685 3200 5725 3200
+Wire Wire Line
+	5725 3200 5725 2945
+Wire Wire Line
+	5655 2945 5725 2945
+Wire Wire Line
+	5725 2945 5725 2900
+Connection ~ 5725 2945
+$Comp
+L power:VCC #PWR?
+U 1 1 63C1E712
+P 5725 2665
+F 0 "#PWR?" H 5725 2515 50  0001 C CNN
+F 1 "VCC" H 5725 2805 50  0000 C CNN
+F 2 "" H 5725 2665 50  0001 C CNN
+F 3 "" H 5725 2665 50  0001 C CNN
+	1    5725 2665
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5725 2665 5725 2685
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63C397D7
+P 5900 2805
+F 0 "R?" H 5968 2851 50  0000 L CNN
+F 1 "10k" H 5968 2760 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 5900 2805 50  0001 C CNN
+F 3 "" H 5900 2805 50  0001 C CNN
+	1    5900 2805
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad_symbol_general:R_Small_US R?
+U 1 1 63C39BD5
+P 6030 2805
+F 0 "R?" H 6098 2851 50  0000 L CNN
+F 1 "10k" H 6098 2760 50  0000 L CNN
+F 2 "kicad_footprint_general:R_0603_1608Metric" H 6030 2805 50  0001 C CNN
+F 3 "" H 6030 2805 50  0001 C CNN
+	1    6030 2805
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5320 3300 5900 3300
+Wire Wire Line
+	5320 3400 5500 3400
+Wire Wire Line
+	5320 3600 5505 3600
+Text Label 5500 3400 2    50   ~ 0
+GND
+Text Label 5505 3600 2    50   ~ 0
+VCC
+Wire Wire Line
+	5725 2685 5900 2685
+Wire Wire Line
+	6030 2685 6030 2705
+Connection ~ 5725 2685
+Wire Wire Line
+	5725 2685 5725 2700
+Wire Wire Line
+	5900 2705 5900 2685
+Connection ~ 5900 2685
+Wire Wire Line
+	5900 2685 6030 2685
+Wire Wire Line
+	5900 2905 5900 3300
+Connection ~ 5900 3300
+Wire Wire Line
+	5900 3300 6285 3300
+Wire Wire Line
+	5320 3500 6030 3500
+Wire Wire Line
+	6030 2910 6030 3500
+Connection ~ 6030 3500
+Wire Wire Line
+	6030 3500 6275 3500
+Text Label 6285 3300 2    50   ~ 0
+SWC
+Text Label 6275 3500 2    50   ~ 0
+SWD
+Wire Wire Line
+	5320 3200 5485 3200
+Text Label 5350 3200 0    50   ~ 0
+RST
+Wire Wire Line
+	9230 3900 9230 3670
+Text Label 9230 3670 3    50   ~ 0
+SWC
+Wire Wire Line
+	10130 4500 10360 4500
+Text Label 10360 4500 2    50   ~ 0
+SWD
+Wire Wire Line
+	9130 3900 9130 3670
+Text Label 9130 3670 3    50   ~ 0
+CS
+Wire Wire Line
+	8430 3900 8430 3670
+Text Label 8430 3670 3    50   ~ 0
+MOSI
+Wire Wire Line
+	8530 3900 8530 3670
+Text Label 8530 3670 3    50   ~ 0
+MISO
+Text Label 8630 3670 3    50   ~ 0
+SCLK
+Wire Wire Line
+	8630 3900 8630 3670
+Wire Wire Line
+	10130 5000 10360 5000
+Text Label 10360 5000 2    50   ~ 0
+TX0
+Wire Wire Line
+	10130 4900 10360 4900
+Text Label 10360 4900 2    50   ~ 0
+RX0
+Wire Wire Line
+	7730 6400 7730 6630
+Text Label 7730 6630 1    50   ~ 0
+RX1
+Wire Wire Line
+	6830 5900 6600 5900
+Text Label 6600 5900 0    50   ~ 0
+TX1
+Wire Wire Line
+	8430 6400 8430 6630
+Text Label 8430 6630 1    50   ~ 0
+LTX0
+Wire Wire Line
+	8530 6400 8530 6630
+Text Label 8530 6630 1    50   ~ 0
+LRX0
+Wire Wire Line
+	6830 5700 6600 5700
+Text Label 6600 5700 0    50   ~ 0
+LTX1
+Wire Wire Line
+	6830 5800 6600 5800
+Text Label 6600 5800 0    50   ~ 0
+LRX1
 $EndSCHEMATC
