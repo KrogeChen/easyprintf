@@ -133,7 +133,7 @@ U 1 1 63203E2B
 P 6915 8225
 F 0 "U60" H 6590 8575 50  0000 C CNN
 F 1 "W25Q128JVS" H 7200 8575 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 6915 8225 50  0001 C CNN
+F 2 "kicad_footprint_general:SOIC-8_5.23x5.23mm_P1.27mm" H 6915 8225 50  0001 C CNN
 F 3 "http://www.winbond.com/resource-files/w25q128jv_dtr%20revc%2003272018%20plus.pdf" H 6915 8225 50  0001 C CNN
 	1    6915 8225
 	1    0    0    -1  
@@ -144,7 +144,7 @@ U 1 1 63205430
 P 13505 5515
 F 0 "U50" H 13265 5875 50  0000 C CNN
 F 1 "SP3485EN" H 13765 5880 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 14555 5165 50  0001 C CIN
+F 2 "kicad_footprint_general:SOIC-8_3.9x4.9mm_P1.27mm" H 14555 5165 50  0001 C CIN
 F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 13505 5515 50  0001 C CNN
 	1    13505 5515
 	1    0    0    -1  
@@ -155,7 +155,7 @@ U 1 1 63205DD2
 P 13525 3800
 F 0 "U40" H 13295 4150 50  0000 C CNN
 F 1 "SP3485EN" H 13735 4150 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 14575 3450 50  0001 C CIN
+F 2 "kicad_footprint_general:SOIC-8_3.9x4.9mm_P1.27mm" H 14575 3450 50  0001 C CIN
 F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 13525 3800 50  0001 C CNN
 	1    13525 3800
 	1    0    0    -1  
@@ -518,7 +518,7 @@ U 1 1 6328F65F
 P 13505 7160
 F 0 "U51" H 13265 7535 50  0000 C CNN
 F 1 "SP3485EN" H 13765 7515 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 14555 6810 50  0001 C CIN
+F 2 "kicad_footprint_general:SOIC-8_3.9x4.9mm_P1.27mm" H 14555 6810 50  0001 C CIN
 F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 13505 7160 50  0001 C CNN
 	1    13505 7160
 	1    0    0    -1  
@@ -673,7 +673,7 @@ U 1 1 632D36A1
 P 3175 8640
 F 0 "U30" H 3425 8985 50  0000 C CNN
 F 1 "SP3485EN" H 2900 8990 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4225 8290 50  0001 C CIN
+F 2 "kicad_footprint_general:SOIC-8_3.9x4.9mm_P1.27mm" H 4225 8290 50  0001 C CIN
 F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 3175 8640 50  0001 C CNN
 	1    3175 8640
 	-1   0    0    -1  
@@ -1350,7 +1350,7 @@ Wire Wire Line
 	3985 4485 4250 4485
 Wire Wire Line
 	3985 4585 4250 4585
-Text Label 4250 4485 2    50   ~ 0
+Text Label 3850 8840 2    50   ~ 0
 LTX1
 $Comp
 L kicad_symbol_general:74LVC1G86 U31
@@ -1363,7 +1363,7 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4120 8000 50  0001 C CNN
 	1    4120 8000
 	1    0    0    -1  
 $EndComp
-Text Label 4250 4585 2    50   ~ 0
+Text Label 3845 8440 2    50   ~ 0
 LRX1
 Wire Wire Line
 	3950 2255 4145 2255
@@ -1386,16 +1386,12 @@ F 3 "" H 1075 8740 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3575 8440 3845 8440
-Text Label 3845 8440 2    50   ~ 0
-LRX0
 Wire Wire Line
 	3575 8540 3850 8540
 Text Label 3850 8540 2    50   ~ 0
 GND
 Wire Wire Line
 	3575 8840 3850 8840
-Text Label 3850 8840 2    50   ~ 0
-LTX0
 Wire Wire Line
 	3575 8740 3850 8740
 Text Label 3715 8740 0    50   ~ 0
@@ -1469,7 +1465,7 @@ Wire Wire Line
 Wire Wire Line
 	4650 9000 4850 9000
 Text Label 4850 9000 2    50   ~ 0
-LTX0
+LTX1
 $Comp
 L power:VCC #PWR0127
 U 1 1 6375CE44
@@ -1487,10 +1483,8 @@ Wire Wire Line
 	3820 7950 3615 7950
 Wire Wire Line
 	3820 8050 3615 8050
-Text Label 3615 7950 0    50   ~ 0
+Text Label 4250 4585 2    50   ~ 0
 LRX0
-Text Label 3615 8050 0    50   ~ 0
-LTX0
 Wire Wire Line
 	4370 8000 4500 8000
 Text Label 4500 8000 2    50   ~ 0
@@ -1907,8 +1901,6 @@ Text Label 6285 3300 2    50   ~ 0
 SWC
 Text Label 6275 3500 2    50   ~ 0
 SWD
-Wire Wire Line
-	5320 3200 5485 3200
 Text Label 5350 3200 0    50   ~ 0
 RST
 Wire Wire Line
@@ -1917,7 +1909,7 @@ Text Label 9230 3670 3    50   ~ 0
 SWC
 Wire Wire Line
 	10130 4500 10360 4500
-Text Label 10360 4500 2    50   ~ 0
+Text Label 10360 4600 2    50   ~ 0
 SWD
 Wire Wire Line
 	9130 3900 9130 3670
@@ -1937,11 +1929,9 @@ Wire Wire Line
 	8630 3900 8630 3670
 Wire Wire Line
 	10130 5000 10360 5000
-Text Label 10360 5000 2    50   ~ 0
-TX0
 Wire Wire Line
 	10130 4900 10360 4900
-Text Label 10360 4900 2    50   ~ 0
+Text Label 7930 3670 3    50   ~ 0
 RX0
 Wire Wire Line
 	7730 6400 7730 6630
@@ -1949,24 +1939,24 @@ Text Label 7730 6630 1    50   ~ 0
 RX1
 Wire Wire Line
 	6830 5900 6600 5900
-Text Label 6600 5900 0    50   ~ 0
+Text Label 8030 6630 1    50   ~ 0
 TX1
 Wire Wire Line
 	8430 6400 8430 6630
-Text Label 8430 6630 1    50   ~ 0
-LTX0
-Wire Wire Line
-	8530 6400 8530 6630
-Text Label 8530 6630 1    50   ~ 0
-LRX0
-Wire Wire Line
-	6830 5700 6600 5700
-Text Label 6600 5700 0    50   ~ 0
+Text Label 9030 3670 3    50   ~ 0
 LTX1
 Wire Wire Line
-	6830 5800 6600 5800
-Text Label 6600 5800 0    50   ~ 0
+	8530 6400 8530 6630
+Text Label 8830 3670 3    50   ~ 0
 LRX1
+Wire Wire Line
+	6830 5700 6600 5700
+Text Label 10360 5900 2    50   ~ 0
+LTX0
+Wire Wire Line
+	6830 5800 6600 5800
+Text Label 9030 6630 1    50   ~ 0
+LRX0
 Text Label 12900 6960 0    50   ~ 0
 RX0
 Text Label 12900 5715 0    50   ~ 0
@@ -2236,7 +2226,7 @@ U 1 1 639AC877
 P 8850 8215
 F 0 "U61" H 8525 8565 50  0000 C CNN
 F 1 "W25Q128JVS" H 9135 8565 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 8850 8215 50  0001 C CNN
+F 2 "kicad_footprint_general:SOIC-8_5.23x5.23mm_P1.27mm" H 8850 8215 50  0001 C CNN
 F 3 "http://www.winbond.com/resource-files/w25q128jv_dtr%20revc%2003272018%20plus.pdf" H 8850 8215 50  0001 C CNN
 	1    8850 8215
 	1    0    0    -1  
@@ -2320,7 +2310,7 @@ U 1 1 639D298F
 P 8860 10015
 F 0 "U63" H 8535 10365 50  0000 C CNN
 F 1 "W25Q128JVS" H 9145 10365 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 8860 10015 50  0001 C CNN
+F 2 "kicad_footprint_general:SOIC-8_5.23x5.23mm_P1.27mm" H 8860 10015 50  0001 C CNN
 F 3 "http://www.winbond.com/resource-files/w25q128jv_dtr%20revc%2003272018%20plus.pdf" H 8860 10015 50  0001 C CNN
 	1    8860 10015
 	1    0    0    -1  
@@ -2404,7 +2394,7 @@ U 1 1 639F9CA4
 P 6890 10020
 F 0 "U62" H 6565 10370 50  0000 C CNN
 F 1 "W25Q128JVS" H 7175 10370 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 6890 10020 50  0001 C CNN
+F 2 "kicad_footprint_general:SOIC-8_5.23x5.23mm_P1.27mm" H 6890 10020 50  0001 C CNN
 F 3 "http://www.winbond.com/resource-files/w25q128jv_dtr%20revc%2003272018%20plus.pdf" H 6890 10020 50  0001 C CNN
 	1    6890 10020
 	1    0    0    -1  
@@ -2484,19 +2474,19 @@ Wire Wire Line
 	6495 9525 6615 9525
 Wire Wire Line
 	9030 3900 9030 3670
-Text Label 9030 3670 3    50   ~ 0
+Text Label 10360 5400 2    50   ~ 0
 CS3
 Wire Wire Line
 	8930 3900 8930 3670
-Text Label 8930 3670 3    50   ~ 0
+Text Label 10360 4500 2    50   ~ 0
 CS2
 Wire Wire Line
 	8830 3900 8830 3670
-Text Label 8830 3670 3    50   ~ 0
+Text Label 8330 3670 3    50   ~ 0
 CS1
 Wire Wire Line
 	8730 3900 8730 3670
-Text Label 8730 3670 3    50   ~ 0
+Text Label 10360 4400 2    50   ~ 0
 CS0
 Wire Wire Line
 	8330 3900 8330 3670
@@ -2568,8 +2558,8 @@ Wire Wire Line
 	6600 4600 6830 4600
 Wire Wire Line
 	6600 4500 6830 4500
-NoConn ~ 6600 4500
 NoConn ~ 6600 4600
+NoConn ~ 10360 5200
 NoConn ~ 6600 4700
 $Comp
 L kicad_symbol_general:LED_Small D22
@@ -2776,26 +2766,24 @@ Wire Wire Line
 	12585 7585 12740 7585
 Text Label 12740 7585 2    50   ~ 0
 LE3
-Text Label 7830 6630 1    50   ~ 0
+Text Label 8130 6630 1    50   ~ 0
 LE0
-Text Label 6600 5400 0    50   ~ 0
+Text Label 10360 5700 2    50   ~ 0
 LE1
 Text Label 6600 5600 0    50   ~ 0
 VCC
 Text Label 6600 5500 0    50   ~ 0
 GND
-Text Label 8330 6630 1    50   ~ 0
+Text Label 10360 5600 2    50   ~ 0
 LE2
-Text Label 10360 5100 2    50   ~ 0
+Text Label 8230 3670 3    50   ~ 0
 LE3
-Text Label 10360 5400 2    50   ~ 0
+Text Label 6600 5200 0    50   ~ 0
 LE4
-Text Label 10360 5800 2    50   ~ 0
+Text Label 6600 5800 0    50   ~ 0
 EPN
-Text Label 10360 5700 2    50   ~ 0
+Text Label 6600 5700 0    50   ~ 0
 EPN
-Text Label 10360 5500 2    50   ~ 0
-EPF
 $Comp
 L kicad_symbol_general:R_Small_US R48
 U 1 1 64582DF5
@@ -2885,26 +2873,18 @@ NoConn ~ 13125 4000
 NoConn ~ 13105 5315
 NoConn ~ 13105 7360
 NoConn ~ 6600 5100
-NoConn ~ 6600 5200
-NoConn ~ 6600 5300
-NoConn ~ 8030 6630
-NoConn ~ 8130 6630
-NoConn ~ 8230 6630
-NoConn ~ 8830 6630
-NoConn ~ 8930 6630
-NoConn ~ 9030 6630
-NoConn ~ 10360 5900
-NoConn ~ 10360 5600
-NoConn ~ 10360 5300
-NoConn ~ 10360 5200
 NoConn ~ 10360 4700
-NoConn ~ 10360 4600
-NoConn ~ 10360 4400
+NoConn ~ 6600 5300
+NoConn ~ 7830 6630
+NoConn ~ 8230 6630
+NoConn ~ 10360 4900
+NoConn ~ 8930 6630
+NoConn ~ 8530 6630
+NoConn ~ 8430 6630
+NoConn ~ 10360 5300
+NoConn ~ 10360 5000
 NoConn ~ 9130 3670
-NoConn ~ 8230 3670
-NoConn ~ 8030 3670
-NoConn ~ 7930 3670
-Text Label 8730 6630 1    50   ~ 0
+Text Label 8730 3670 3    50   ~ 0
 CFT
 NoConn ~ 7930 6630
 $Comp
@@ -2969,8 +2949,6 @@ Wire Wire Line
 	7740 3060 7800 3060
 Wire Wire Line
 	8345 3060 8500 3060
-Text Label 8330 3670 3    50   ~ 0
-LEM
 $Comp
 L kicad_symbol_general:LED_Small D10
 U 1 1 64F19345
@@ -2984,8 +2962,8 @@ F 3 "" V 8245 3060 50  0001 C CNN
 $EndComp
 Text Label 8500 3060 2    50   ~ 0
 LEM
-Text Label 8630 6630 1    50   ~ 0
-LRX0
+Text Label 8930 3670 3    50   ~ 0
+LRX1
 Text Notes 1090 5895 0    50   ~ 0
 Command interface\nBR:115200
 Text Notes 1085 3415 0    50   ~ 0
@@ -3013,7 +2991,7 @@ L kicad_symbol_general:LED_Small D51
 U 1 1 65073C12
 P 14470 8000
 F 0 "D51" H 14470 7925 50  0000 C CNN
-F 1 "RED" H 14470 8125 50  0000 C CNN
+F 1 "BLUE" H 14470 8125 50  0000 C CNN
 F 2 "kicad_footprint_general:LED_0603_1608Metric" V 14470 8000 50  0001 C CNN
 F 3 "" V 14470 8000 50  0001 C CNN
 	1    14470 8000
@@ -3025,7 +3003,7 @@ Wire Wire Line
 	14300 8000 14100 8000
 Text Label 14100 8000 0    50   ~ 0
 TLL
-Text Label 10360 4800 2    50   ~ 0
+Text Label 6600 4500 0    50   ~ 0
 TLL
 $Comp
 L kicad_symbol_general:LL4148 D52
@@ -3129,4 +3107,30 @@ Text Label 14615 5615 0    50   ~ 0
 B2
 Text Label 14660 7260 0    50   ~ 0
 B3
+Wire Wire Line
+	5350 3200 5485 3200
+NoConn ~ 5320 3200
+Text Label 4250 4485 2    50   ~ 0
+LTX0
+Text Label 10360 5500 2    50   ~ 0
+TEN
+Text Label 8030 3670 3    50   ~ 0
+TX0
+NoConn ~ 8730 6630
+NoConn ~ 8330 6630
+NoConn ~ 10360 5100
+NoConn ~ 8630 6630
+Text Label 3615 8050 0    50   ~ 0
+LRX1
+Text Label 3615 7950 0    50   ~ 0
+LTX1
+NoConn ~ 10360 4800
+Text Label 6600 5900 0    50   ~ 0
+EPF
+NoConn ~ 10360 5800
+NoConn ~ 6600 5400
+Text Label 8830 6630 1    50   ~ 0
+LEM
+NoConn ~ -2345 6155
+NoConn ~ 18840 8005
 $EndSCHEMATC
