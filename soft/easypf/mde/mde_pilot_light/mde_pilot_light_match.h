@@ -14,8 +14,8 @@ static void pilot_solid_cfg(void)
 //-----------------------------------------------------------------------------
     bsp_pilot_light_cfg();
     pilot_oper_solid[0].lamp_id = 0;
-    pilot_oper_solid[0].lighten_ms = 100;
-    pilot_oper_solid[0].dark_ms = 1400;
+    pilot_oper_solid[0].lighten_ms = 250;
+    pilot_oper_solid[0].dark_ms = 750;
 //-----------------------------------------------------------------------------
 }
 #endif

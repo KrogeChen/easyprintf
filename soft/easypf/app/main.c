@@ -4,53 +4,39 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#include "app_cfg.h"
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//绝对定位放置静态数据
+//------------------------------------------------------------------------------
+//#pragma location = (0x00A000+0x000080)
+//__root const sdt_int32u hardwareType = HARDWARE_FLAG;
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//share ram
+//------------------------------------------------------------------------------
+sdt_int8u g_share_buff[128];
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void app_general_task(void)
 {
-    macro_createTimer(timer_sysrst,timerType_millisecond,3000);
-    static sdt_bool cfged = sdt_false;
+    //mde_watchdog_reload();
+    mde_pilot_light_task();
 
-    if(cfged)
-    {
-//------------------------------------------------------------------------------
-        mde_watchdog_reload();
-        mde_pilot_light_task();
-        pbc_pull_us_tick_16bits();
-        app_modbus_slave_task();
-        app_measure_stroke_task();
-        app_cmd_message_task();
-        app_storage_task();
-        mde_digit_input_task();
-        mde_digit_output_task();
-        mde_ws2812b_task();
-//------------------------------------------------------------------------------
-        if(pbc_pull_timerIsOnceTriggered(&timer_sysrst))
-        {
-            mde_push_pilot_light_ldms(0,500,500); //3s复位常亮,改变状态灯,闪亮
-        }
-//------------------------------------------------------------------------------
-        macro_createTimer(timer_logtx,timerType_millisecond,10500);
-        
-        pbc_timerClockRun_task(&timer_logtx);
-        if(pbc_pull_timerIsCompleted(&timer_logtx))
-        {
-            pbc_reload_timerClock(&timer_logtx,2000);
-            //while(1);
-        } 
-//------------------------------------------------------------------------------
-    }
-    else
-    {
-        cfged = sdt_true;
-        app_read_sto_parameter();
-    }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//------------------------------------------------------------------------------
 void main(void)
 {
-    mde_watchdog_cfg();
-    pbc_task_create(app_general_task,0);
 //------------------------------------------------------------------------------
+//config
+//    mde_watchdog_cfg();
+//    app_read_storage();
+//    mde_dc_motor_push_cfg((SYNC_DCM_ARGU_PDEF)sync_dcMotor_argument);
+//    mde_pt1000_cfg((SYNC_PT1000_ARGU_PDEF)sync_pt1000_argument);
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//create task
+    pbc_task_create(app_general_task,0);
     pbc_task_process();
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

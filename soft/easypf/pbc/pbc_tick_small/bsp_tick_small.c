@@ -6,7 +6,8 @@
 
 #elif defined(STM8L052C6T6)
 #include ".\bsp_tick_small_stm8l052c6t6.h"
-#elif defined(hc32l136k8ta)
+#elif defined(HC32L136K8TA)
+#include ".\bsp_tick_small_hc32l136k8ta.h"
 
 #elif defined(hc32l176kata)
 
