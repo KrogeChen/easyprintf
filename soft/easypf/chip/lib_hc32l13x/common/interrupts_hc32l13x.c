@@ -365,12 +365,12 @@ void TIM1_IRQHandler(void)
  ** 
  ** \retval
  ******************************************************************************/
-void TIM2_IRQHandler(void)
-{
-#if (INT_CALLBACK_ON == INT_CALLBACK_TIM2)    
-    Tim2_IRQHandler();
-#endif
-}
+//void TIM2_IRQHandler(void)
+//{
+//#if (INT_CALLBACK_ON == INT_CALLBACK_TIM2)    
+//    Tim2_IRQHandler();
+//#endif
+//}
 
 /**
  *******************************************************************************

@@ -15,13 +15,19 @@
 //------------------------------------------------------------------------------
 sdt_int8u g_share_buff[128];
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+macro_cTimerTig(timer_epf,timerType_millisecond,1000);
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void app_general_task(void)
 {
     //mde_watchdog_reload();
     mde_pilot_light_task();
-
+    pbc_timerClockRun_task(&timer_epf);
+    if(pbc_pull_timerIsCompleted(&timer_epf))
+    {
+        pbc_reload_timerClock(&timer_epf,200);
+        pbc_easy_printf("1");
+    } 
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //------------------------------------------------------------------------------

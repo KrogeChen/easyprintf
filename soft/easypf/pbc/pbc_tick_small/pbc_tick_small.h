@@ -9,6 +9,7 @@
 /*
 //应用示例
 macro_createTimer(timer_xxx,timerType_millisecond,0);
+macro_cTimerTig(timer_xxx,timerType_millisecond,0);
 pbc_timerClockRun_task(&timer_xxx);
 if(pbc_pull_timerIsCompleted(&timer_xxx))
 {
@@ -169,6 +170,8 @@ void pbc_block_delay_us(sdt_int16u in_dlyus);
 //------------------------------------------------------------------------------
 sdt_int16u pbc_pull_us_tick_16bits(void);
 sdt_int32u pbc_pull_us_tick_32bits(void);
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+sdt_bool pbc_easy_printf(sdt_int8s* in_pStr);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
