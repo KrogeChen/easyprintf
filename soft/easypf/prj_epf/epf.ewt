@@ -2338,6 +2338,24 @@
   <group>
     <name>mde</name>
     <group>
+      <name>mde_epf_accpet</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_epf_accpet\bsp_epf_accpet.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_epf_accpet\bsp_epf_accpet.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_epf_accpet\bsp_epf_accpet_hc32l136k8ta.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_epf_accpet\mde_epf_accpet.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_epf_accpet\mde_epf_accpet.h</name>
+      </file>
+    </group>
+    <group>
       <name>mde_pilot_light</name>
       <file>
         <name>$PROJ_DIR$\..\mde\mde_pilot_light\bsp_pilot_light.c</name>
@@ -2374,6 +2392,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\pbc\pbc_tick_small\bsp_tick_small.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\pbc\pbc_tick_small\bsp_tick_small_hc32l136k8ta.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\pbc\pbc_tick_small\pbc_tick_small.c</name>

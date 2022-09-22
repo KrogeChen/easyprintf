@@ -5,11 +5,12 @@
     #include ".\snail_data_types.h"
 #endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//2022.09.22 触发型定时器创建,取消初始值的传递,采用默认值
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 /*
 //应用示例
 macro_createTimer(timer_xxx,timerType_millisecond,0);
-macro_cTimerTig(timer_xxx,timerType_millisecond,0);
+macro_cTimerTig(timer_xxx,timerType_millisecond);
 pbc_timerClockRun_task(&timer_xxx);
 if(pbc_pull_timerIsCompleted(&timer_xxx))
 {
@@ -85,7 +86,7 @@ typedef struct
 #define macro_createTimer(timerName,timerType,org_value)  static timerClock_def timerName={timerType,org_value,0};
 //------------------------------------------------------------------------------
 //创建立后,必须重新赋值后才能触发
-#define macro_cTimerTig(timerName,timerType,org_value)  static timerClock_def timerName={timerType|timStatusBits_onceTriggered,org_value,0};
+#define macro_cTimerTig(timerName,timerType)  static timerClock_def timerName={timerType|timStatusBits_onceTriggered,0,0};
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

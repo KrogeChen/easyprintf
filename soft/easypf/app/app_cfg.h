@@ -14,6 +14,7 @@
 #include "..\.\pbc\pbc_data_convert\pbc_data_convert.h"
 ////----------------------------------------------------------------------------
 #include "..\.\mde\mde_pilot_light\mde_pilot_light.h"
+#include "..\.\mde\mde_epf_accpet\mde_epf_accpet.h"
 //#include "..\.\mde\mde_watchdog\mde_watchdog.h"
 //#include "..\.\mde\mde_storage_small\mde_storage_small.h"
 //#include "..\.\mde\mde_mbus_link\mde_mbus_link.h"

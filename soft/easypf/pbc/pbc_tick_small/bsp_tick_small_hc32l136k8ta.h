@@ -1,8 +1,8 @@
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include ".\snail_data_types.h"
 #include "sysctrl.h"
 #include "intrinsics.h"
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //XTH   16M
 //PLL   48M
 //HCLK  48M
@@ -10,7 +10,7 @@
 //-----------------------------------------------------------------------------
 //Timer2  us tick 
 //Timer2  ms tick 
-//-----------------------------------------------------------------------------*/
+//-----------------------------------------------------------------------------
 #define RC_TRIM_BASE_ADDR           ((volatile uint16_t*)   (0x00100C00ul))
 #define RCH_CR_TRIM_24M_VAL         (*((volatile uint16_t*) (0x00100C00ul)))
 #define RCH_CR_TRIM_22_12M_VAL      (*((volatile uint16_t*) (0x00100C02ul)))
@@ -160,7 +160,7 @@ void bsp_system_tick_cfg(void)
     M0P_TIM2_MODE23->CCR0A_f.CCR0A = BASE_CNT;
     M0P_TIM2_MODE23->ARR_f.ARR = 0xffff;
     M0P_TIM2_MODE23->M23CR_f.CTEN = 1;
-    EnableNvic(TIM2_IRQn,IrqLevel0,TRUE);
+    EnableNvic(TIM2_IRQn,IrqLevel0,TRUE); //优先等级最高
 //------------------------------------------------------------------------------
     M0P_SYSCTRL->PERI_CLKEN_f.GPIO = 1;
     M0P_GPIO->PA02_SEL = 0;
@@ -199,7 +199,6 @@ void TIM2_IRQHandler(void)
 {
     static sdt_int8u base_tick;
     sdt_int8u temp_8u;
-//    static sdt_int16u distance_t;
 
     if(0 != M0P_TIM2_MODE23->IFR_f.CA0F)
     {
@@ -326,6 +325,8 @@ void TIM2_IRQHandler(void)
             }
             epf_shift_mask = epf_shift_mask >> 1;
         }
+//------------------------------------------------------------------------------
+//       static sdt_int16u distance_t;
 //       do
 //       {
 //           M0P_TIM2_MODE23->ICLR_f.CA0F = 0;
@@ -376,8 +377,10 @@ sdt_bool bsp_easy_printf(sdt_int8s* in_pStr)
     sdt_int8u full;
     sdt_int8u rd_pmd_in;
     sdt_int8u rd_pmd_ot;
+    sdt_int8u trs_bytes;
+    sdt_int8u i;
 
-    full = sdt_false;
+    full = sdt_true;
     rd_pmd_in = epf_pmd_in;
 //    __disable_interrupt();
     rd_pmd_ot = epf_pmd_ot;
@@ -398,30 +401,52 @@ sdt_bool bsp_easy_printf(sdt_int8s* in_pStr)
         {
             rd_pmd_ot = (sizeof(epf_buff) - 1);
         }
-        while(0 != *in_pStr)
+        //计算字符串和缓冲区的大小,决定是否转移数据
+        if(epf_pmd_in == rd_pmd_ot)//buff is full
         {
-            epf_buff[epf_pmd_in] = (sdt_int8u)*in_pStr;
-            if(epf_pmd_in == rd_pmd_ot)//buff is full
+            return(sdt_true);
+        }
+        else if(epf_pmd_in > rd_pmd_ot)
+        {
+            trs_bytes = sizeof(epf_buff) - (epf_pmd_in - rd_pmd_ot);
+        }
+        else 
+        {
+            trs_bytes = (rd_pmd_ot - epf_pmd_in);
+        }
+        for(i = 0;i < trs_bytes;i++)
+        {
+            if(0 == in_pStr[i])
             {
-                full = sdt_true;
+                full = sdt_false;
                 break;
+            }            
+        }
+        if(sdt_false == full)
+        {
+            i = 0;
+            while(0 != in_pStr[i])//转移数据
+            {
+                epf_buff[epf_pmd_in] = (sdt_int8u)in_pStr[i];
+                __disable_interrupt();
+                epf_pmd_in++;
+                if(epf_pmd_in > (sizeof(epf_buff) - 1))
+                {
+                    epf_pmd_in = 0;
+                }
+                __enable_interrupt();
+                i++;
             }
             __disable_interrupt();
-            epf_pmd_in++;
-            if(epf_pmd_in > (sizeof(epf_buff) - 1))
+            if(0 == epf_status_reg)
             {
-                epf_pmd_in = 0;
+                epf_status_reg = (ESRG_PERAMBLE + ESRG_SYNC + ESRG_PAYLOAD + ESRG_EOF);
             }
-            __enable_interrupt();
-            in_pStr++;
-        }
-        if(0 == epf_status_reg)
-        {
-            epf_status_reg = (ESRG_PERAMBLE + ESRG_SYNC + ESRG_PAYLOAD + ESRG_EOF);
-        }
-        else
-        {
-            epf_status_reg |= ESRG_PAYLOAD;
+            else
+            {
+                epf_status_reg |= ESRG_PAYLOAD;
+            }
+            __enable_interrupt();          
         }
     }                         
     return(full);                 

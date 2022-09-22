@@ -352,12 +352,12 @@ void I2C1_IRQHandler(void)
  ** 
  ** \retval
  ******************************************************************************/
-void TIM1_IRQHandler(void)
-{
-#if (INT_CALLBACK_ON == INT_CALLBACK_TIM1)    
-    Tim1_IRQHandler();
-#endif
-}
+//void TIM1_IRQHandler(void)
+//{
+//#if (INT_CALLBACK_ON == INT_CALLBACK_TIM1)    
+//    Tim1_IRQHandler();
+//#endif
+//}
 
 /**
  *******************************************************************************
