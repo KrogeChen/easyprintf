@@ -366,8 +366,10 @@ sdt_int16u pbc_pull_us_tick_16bits(void)
     return(bsp_pull_us_count_16bits());
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#ifdef EPF_LOG_EN
 sdt_bool pbc_easy_printf(sdt_int8s* in_pStr)
 {
     return(bsp_easy_printf(in_pStr));
 }
+#endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -2,6 +2,7 @@
 #include ".\snail_data_types.h"
 #include "sysctrl.h"
 #include "intrinsics.h"
+#include "bsp_tick_small.h"
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //XTH   16M
 //PLL   48M
@@ -161,10 +162,13 @@ void bsp_system_tick_cfg(void)
     M0P_TIM2_MODE23->M23CR_f.CTEN = 1;
     EnableNvic(TIM2_IRQn,IrqLevel0,TRUE); //优先等级最高
 //------------------------------------------------------------------------------
+    #ifdef EPF_LOG_EN
     M0P_SYSCTRL->PERI_CLKEN_f.GPIO = 1;   //EPF字符端口
     M0P_GPIO->PA02_SEL = 0;
     M0P_GPIO->PADIR_f.PA02 = 0;  //output
-    M0P_GPIO->PAOUT_f.PA02 = 0;
+    M0P_GPIO->PAOUT_f.PA02 = 0;    
+    #endif
+
 //------------------------------------------------------------------------------
     __enable_interrupt();
 }
@@ -176,6 +180,7 @@ void bsp_system_tick_cfg(void)
 //------------------------------------------------------------------------------
 static sdt_int16u tick_mircs_h;
 //------------------------------------------------------------------------------
+#ifdef EPF_LOG_EN
 static sdt_int8u epf_buff[64];
 static sdt_int8u epf_pmd_in;
 static sdt_int8u epf_pmd_ot;
@@ -186,11 +191,12 @@ static sdt_int32u epf_status_reg;
 #define ESRG_SYNC         0x02
 #define ESRG_PAYLOAD      0x04
 #define ESRG_EOF          0x08
+#endif
 //------------------------------------------------------------------------------
 void TIM2_IRQHandler(void)
 {
     static sdt_int8u base_tick;
-    sdt_int8u temp_8u;
+    
 
     if(0 != M0P_TIM2_MODE23->IFR_f.CA0F)
     {
@@ -201,7 +207,8 @@ void TIM2_IRQHandler(void)
         {
             tick_millsecond ++;
         }
-
+        #ifdef EPF_LOG_EN
+        sdt_int8u temp_8u;
         if(0 == epf_shift_mask)
         {
             if(epf_status_reg & ESRG_PERAMBLE)
@@ -316,7 +323,9 @@ void TIM2_IRQHandler(void)
                 M0P_GPIO->PAOUT_f.PA02 = 1;
             }
             epf_shift_mask = epf_shift_mask >> 1;
-        }
+        }        
+        #endif
+
 //------------------------------------------------------------------------------
 //       static sdt_int16u distance_t;
 //       do
@@ -368,8 +377,10 @@ sdt_int16u bsp_pull_us_count_16bits(void)
 //in:字符串文本
 //out:失败指示,sdt_true--转移失败(缓冲区无法容纳转移的字符串长度)
 //------------------------------------------------------------------------------
+#ifdef EPF_LOG_EN
 sdt_bool bsp_easy_printf(sdt_int8s* in_pStr)
 {
+    
     sdt_int8u full;
     sdt_int8u rd_pmd_in;
     sdt_int8u rd_pmd_ot;
@@ -445,6 +456,7 @@ sdt_bool bsp_easy_printf(sdt_int8s* in_pStr)
             __enable_interrupt();          
         }
     }                         
-    return(full);                 
+    return(full);
 }
+#endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
