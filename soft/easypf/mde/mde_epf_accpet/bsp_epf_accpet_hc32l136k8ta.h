@@ -162,7 +162,7 @@ static sdt_bool epf_accpet_block;
 //------------------------------------------------------------------------------
 void bsp_epf_accpet_task(void)
 {
-    sdt_int8u rd_elwdt_in,rd_elwdt_ot;
+    //sdt_int8u rd_elwdt_in,rd_elwdt_ot;
     sdt_int16u rd_width;
     
     do
