@@ -1,5 +1,5 @@
-#ifndef mde_epf_accpet_H
-#define mde_epf_accpet_H
+#ifndef mde_rmcd_char_H
+#define mde_rmcd_char_H
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #ifndef snail_data_types
     #include ".\depend\snail_data_types.h"
@@ -13,12 +13,12 @@
 //
 //出口: 无
 //------------------------------------------------------------------------------
-void mde_epf_accpet_task(void);
+//void mde_epf_accpet_task(void);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++interface+++++++++++++++++++++++++++++++++++++
-
-sdt_bool bsp_pull_accpet_one_byte(sdt_bool* pOut_msg,sdt_int8s* pOut_byte);
+void mde_rmcd_char_cfg(void);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+sdt_int16u mde_rmcd_transfet_string(sdt_int8s* in_pString);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

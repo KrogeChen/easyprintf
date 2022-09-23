@@ -26,6 +26,15 @@ void bsp_pilot_light_cfg(void)
     M0P_GPIO->PB02_SEL = 0;
     M0P_GPIO->PBDIR_f.PB02 = 0;  //output
     M0P_GPIO->PBOUT_f.PB02 = 0;
+    
+    //PC01，EPF指示
+    M0P_GPIO->PC01_SEL = 0;
+    M0P_GPIO->PCDIR_f.PC01 = 0;  //output
+    M0P_GPIO->PCOUT_f.PC01 = 0;
+    //PA05，RTLD指示
+    M0P_GPIO->PA05_SEL = 0;
+    M0P_GPIO->PADIR_f.PA05 = 0;  //output
+    M0P_GPIO->PAOUT_f.PA05 = 0;
 }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //名称: 点亮指示灯
@@ -41,6 +50,16 @@ void bsp_pilot_light_lighten(sdt_int8u in_lamp_id)
         case 0:
         {
             M0P_GPIO->PBOUT_f.PB02 = 0;
+            break;
+        }
+        case 1:
+        {
+            M0P_GPIO->PCOUT_f.PC01 = 0;
+            break;
+        }
+        case 2:
+        {
+            M0P_GPIO->PAOUT_f.PA05 = 0;
             break;
         }
         default:
@@ -63,6 +82,16 @@ void bsp_pilot_light_dark(sdt_int8u in_lamp_id)
         case 0:
         {
             M0P_GPIO->PBOUT_f.PB02 = 1;
+            break;
+        }
+        case 1:
+        {
+            M0P_GPIO->PCOUT_f.PC01 = 1;
+            break;
+        }
+        case 2:
+        {
+            M0P_GPIO->PAOUT_f.PA05 = 1;
             break;
         }
         default:

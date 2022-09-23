@@ -28,7 +28,7 @@ void app_general_task(void)
     if(pbc_pull_timerIsCompleted(&timer_epf))
     {
         pbc_reload_timerClock(&timer_epf,1000);
-        pbc_easy_printf("This is EPF test message,luck for you!");
+        pbc_easy_printf("This EPF test is succeed,luck for you!");
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -41,10 +41,12 @@ void main(void)
 //    app_read_storage();
 //    mde_dc_motor_push_cfg((SYNC_DCM_ARGU_PDEF)sync_dcMotor_argument);
 //    mde_pt1000_cfg((SYNC_PT1000_ARGU_PDEF)sync_pt1000_argument);
+    mde_rmcd_char_cfg();
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //create task
     pbc_task_create(app_general_task,0);
+    pbc_task_create(app_epf_message_task,0);
     pbc_task_process();
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

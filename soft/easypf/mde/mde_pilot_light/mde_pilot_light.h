@@ -25,6 +25,7 @@ void mde_pilot_light_task(void);
 //------------------------------------------------------------------------------
 void mde_push_pilot_light_ldms(sdt_int8u in_solid_number,sdt_int16u in_ms_lighten,sdt_int16u in_ms_dark);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+void mde_push_pilot_light_pulsems(sdt_int8u in_solid_number,sdt_int16u in_ms_lighten);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

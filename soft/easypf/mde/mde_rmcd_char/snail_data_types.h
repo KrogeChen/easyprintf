@@ -51,7 +51,6 @@ typedef signed   long long   sdt_int64s;                   /* Signed   64 bit qu
 #define sdt_chars_ctrlZ    0x1A  //  CTRL+Z
 #define sdt_chars_tLeft    0x3E  //  \>
 #define sdt_chars_space    0x20  //  空格
-#define sdt_chars_eof      0x00
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #endif	
 //++++++++++++++++++++++++++++++++End++++++++++++++++++++++++++++++++++

@@ -2320,6 +2320,12 @@
       <name>$PROJ_DIR$\..\app\app_cfg.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\app\app_epf_message.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\app_epf_message.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\app\main.c</name>
     </file>
   </group>
@@ -2371,6 +2377,24 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\mde\mde_pilot_light\mde_pilot_light_match.h</name>
+      </file>
+    </group>
+    <group>
+      <name>mde_rmcd_char</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_rmcd_char\bsp_rmcd_char.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_rmcd_char\bsp_rmcd_char.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_rmcd_char\bsp_rmcd_char_hc32l136k8ta.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_rmcd_char\mde_rmcd_char.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_rmcd_char\mde_rmcd_char.h</name>
       </file>
     </group>
   </group>

@@ -157,7 +157,8 @@ static sdt_int32u acc_width;
 static sdt_int8u acc_cnt;
 static sdt_int8u fat_shift_reg,fat_shift_mask;
 static sdt_int8u accpet_byte_buff[128];
-static sdt_int8u epf_apb_in;
+static sdt_int8u epf_apb_in,epf_apb_ot;
+static sdt_bool epf_accpet_block;
 //------------------------------------------------------------------------------
 void bsp_epf_accpet_task(void)
 {
@@ -343,6 +344,7 @@ void bsp_epf_accpet_task(void)
             }
             case FAT_EOF:
             {
+                epf_accpet_block = sdt_true;
                 fat_sMah = FAT_IDLE;
                 break;
             }
@@ -355,4 +357,32 @@ void bsp_epf_accpet_task(void)
 
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+sdt_bool bsp_pull_accpet_one_byte(sdt_bool* pOut_msg,sdt_int8s* pOut_byte)
+{
+    sdt_bool g_byte;
+    
+    if(epf_accpet_block)
+    {
+        epf_accpet_block = sdt_false;
+        *pOut_msg = sdt_true;
+    }
+    else
+    {
+        *pOut_msg = sdt_false;
+    }
+    g_byte = sdt_false;
+    if(epf_apb_ot != epf_apb_in)
+    {
+        *pOut_byte = accpet_byte_buff[epf_apb_ot];
+        epf_apb_ot++;
+        if(epf_apb_ot > sizeof(accpet_byte_buff) - 1)
+        {
+            epf_apb_ot = 0;
+        }
+        g_byte = sdt_true;
+    }  
+
+
+    return(g_byte);
+}
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
