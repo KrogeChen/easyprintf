@@ -16,7 +16,6 @@
 #include "..\.\mde\mde_storage_small\mde_storage_small.h"
 #include "..\.\mde\mde_update_files\mde_update_files.h"
 #include "..\.\mde\mde_mbus_link\mde_mbus_link.h"
-#include "..\.\mde\mde_pilot_light\mde_pilot_light.h"
 ////----------------------------------------------------------------------------
 #include ".\app_protocol_easyink.h"
 #include ".\app_mbus.h"

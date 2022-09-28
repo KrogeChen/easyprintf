@@ -31,7 +31,8 @@
 #define INK_VERSION              0x01
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define FILL_MARK                0xFF //mbus链路采用0xFF填充,减少电流消耗
-#define HARDWARE_SEQ             0x02 //硬件标识数据,第2个文件块的头4个字节
+#define HARDWARE_SEQ             0x02 //硬件标识数据,第2个文件块的4个字节
+#define HARDWARE_LOC             64   //硬件内容数组定位
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 static sdt_int8u answer_buff[6];
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -109,7 +110,7 @@ sdt_bool app_easyink_message_exchange(EZINK_MSG_DEF *mix_ezink_msg)
                     error = mde_push_updateFiles_oneBlock(&mix_ezink_msg->pEik_apt_buff[PK_BFILES],files_number); //解码
                     if(HARDWARE_SEQ == files_number)
                     {
-                        if(HARDWARE_MARK != pbc_arrayToInt32u_bigEndian(&mix_ezink_msg->pEik_apt_buff[PK_BFILES]))
+                        if(HARDWARE_MARK != pbc_arrayToInt32u_bigEndian(&mix_ezink_msg->pEik_apt_buff[PK_BFILES + HARDWARE_LOC]))
                         {
                             error = ERRUF_FIREWARE;  //固件标识错误
                         }
