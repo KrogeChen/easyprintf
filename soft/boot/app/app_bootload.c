@@ -61,6 +61,7 @@ void app_bootload_task(void)
             if(mde_pull_appSectionFiles_iegal())  
             {
                 jumpToApplication();   //user.app数据合法
+                //bootStatus = bss_inBootRun;
             }
             else
             {

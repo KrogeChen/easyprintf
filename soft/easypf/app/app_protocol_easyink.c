@@ -1,8 +1,18 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include ".\app_cfg.h"
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//查询设备的升级状态
-//FE FE FE 68 42 AA AA AA AA AA AA AA 00 08 82 52 01 01 FF FF FF FF 2A 16
+//只保留的查询和进入BOOT的命令,适合嵌入到APP组件内
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#define ERRUF_NONE               0x00
+#define ERRUF_LENGTH             0x01
+#define ERRUF_VERSION            0x02
+#define ERRUF_CMD                0x03
+#define ERRUF_MAP_CS             0x04
+#define ERRUF_FILE_CS            0x05
+#define ERRUF_BLOCK_NUM          0x06
+#define ERRUF_FIREWARE           0x07
+#define ERRUF_MAP_VER            0x08
+#define ERRUF_OTHER              0xFE
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //协议定位
 #define PK_VER                   0
@@ -18,7 +28,7 @@
 #define CMD_UPDATE               0x03
 #define CMD_RESUME               0x04
 #define CMD_FLIES                0x05
-                               
+                                
 #define CMD_ERR_RP               0xFE  //错误报告
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define STU_NOTBOOT              0x01
@@ -31,26 +41,35 @@
 #define INK_VERSION              0x01
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define FILL_MARK                0xFF //mbus链路采用0xFF填充,减少电流消耗
-#define HARDWARE_SEQ             0x02 //硬件标识数据,第2个文件块的4个字节
-#define HARDWARE_LOC             64   //硬件内容数组定位
+#define HARDWARE_SEQ             0x02
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-static sdt_int8u answer_buff[6];
+//static sdt_int8u answer_buff[6];
+//应答缓冲采用共享内存
+#define  answer_buff  g_share_buff
+//------------------------------------------------------------------------------
+macro_cTimerTig(timer_reboot,timerType_millisecond);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //task++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+void app_easyink_reboot_task(void)
+{
+    pbc_timerClockRun_task(&timer_reboot);     
+    if(pbc_pull_timerIsOnceTriggered(&timer_reboot))
+    {
+        while(1);  //reboot
+    }
+}
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //interface+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //功能:固件升级数据交换模块
 //入口:接收的数据长度和指针,应答的数据长度和指针\
 //出口:sdt_true 文件传输完成
 //------------------------------------------------------------------------------
-static sdt_int32u test_flag;
 sdt_bool app_easyink_message_exchange(EZINK_MSG_DEF *mix_ezink_msg)
 {
     sdt_bool   complete = sdt_false;
     sdt_int8u  error = FILL_MARK;    //
     sdt_int8u  status = FILL_MARK;
-    sdt_int16u request_number = 0; 
-    sdt_int16u files_number;
+    sdt_int16u request_number = 0xFFFF; 
     
     if(mix_ezink_msg->eik_apt_length < 6)
     {
@@ -62,67 +81,14 @@ sdt_bool app_easyink_message_exchange(EZINK_MSG_DEF *mix_ezink_msg)
         {
             case CMD_QUERY:
             {
-                status = STU_INBOOT;
+                status = STU_NOTBOOT;
                 break;
             }
             case CMD_ENTRY_BOOT:
             {
-                status = STU_QYMAP;    //请求MAP
-                break;
-            }
-            case CMD_UPDATE:     //升级
-            {
-                if(mix_ezink_msg->eik_apt_length < (6 + 128))
-                {
-                    error = ERRUF_LENGTH;
-                }
-                else
-                {
-                    status = STU_QYFLIE;
-                    error = mde_push_updateFile_map(&mix_ezink_msg->pEik_apt_buff[PK_BFILES],sdt_false);
-                    mde_pull_updateFiles_nextBlock(&request_number);                    
-                }
-                break;
-            }
-            case CMD_RESUME:    //续传
-            {
-                if(mix_ezink_msg->eik_apt_length < (6 + 128))
-                {
-                    error = ERRUF_LENGTH;
-                }
-                else
-                {
-                    status = STU_QYFLIE;
-                    error = mde_push_updateFile_map(&mix_ezink_msg->pEik_apt_buff[PK_BFILES],sdt_true);
-                    mde_pull_updateFiles_nextBlock(&request_number);                    
-                }
-                break;
-            }
-            case CMD_FLIES:
-            {
-                if(mix_ezink_msg->eik_apt_length < (6 + 128))
-                {
-                    error = ERRUF_LENGTH;
-                }
-                else
-                {
-                    files_number = pbc_arrayToInt16u_bigEndian(&mix_ezink_msg->pEik_apt_buff[PK_BNUM_0]);  //计数文件块编号
-                    status = STU_QYFLIE;
-                    error = mde_push_updateFiles_oneBlock(&mix_ezink_msg->pEik_apt_buff[PK_BFILES],files_number); //解码
-                    if(HARDWARE_SEQ == files_number)
-                    {
-                        test_flag = pbc_arrayToInt32u_bigEndian(&mix_ezink_msg->pEik_apt_buff[PK_BFILES + HARDWARE_LOC]);
-                        if(HARDWARE_MARK != pbc_arrayToInt32u_bigEndian(&mix_ezink_msg->pEik_apt_buff[PK_BFILES + HARDWARE_LOC]))
-                        {
-                            error = ERRUF_FIREWARE;  //固件标识错误
-                        }
-                    }
-                    if(mde_pull_updateFiles_nextBlock(&request_number))
-                    {//传输完毕,complete
-                        status = STU_CPT;
-                        complete = sdt_true;
-                    }                       
-                }
+                status = STU_REBOOT;    //重启,进入BOOT状态
+                pbc_reload_timerClock(&timer_reboot,1000);  //1000ms后reboot
+                mde_push_stoUpdateTag(UPTAG_NEEDUP);        //升级标识
                 break;
             }
             default:

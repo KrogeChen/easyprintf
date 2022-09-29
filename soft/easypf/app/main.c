@@ -8,8 +8,13 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //绝对定位放置静态数据
 //------------------------------------------------------------------------------
-//#pragma location = (0x00A000+0x000080)
-//__root const sdt_int32u hardwareType = HARDWARE_FLAG;
+#pragma location = ".hardware_flag"
+__root const sdt_int8u hardwareType[4] = {
+                                             (HARDWARE_FLAG>>24)&0x000000FF,
+                                             (HARDWARE_FLAG>>16)&0x000000FF,
+                                             (HARDWARE_FLAG>>8)&0x000000FF,
+                                             HARDWARE_FLAG&0x000000FF,
+                                         };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //share ram
 //------------------------------------------------------------------------------
@@ -20,9 +25,11 @@ macro_cTimerTig(timer_epf,timerType_millisecond)
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void app_general_task(void)
 {
-    //mde_watchdog_reload();
+    mde_watchdog_reload();
     mde_pilot_light_task();
     mde_epf_accpet_task();
+    app_mbus_task();
+    app_easyink_reboot_task();
     
     pbc_timerClockRun_task(&timer_epf);
     if(pbc_pull_timerIsCompleted(&timer_epf))
@@ -37,7 +44,7 @@ void main(void)
 {
 //------------------------------------------------------------------------------
 //config
-//    mde_watchdog_cfg();
+    mde_watchdog_cfg();
 //    app_read_storage();
 //    mde_dc_motor_push_cfg((SYNC_DCM_ARGU_PDEF)sync_dcMotor_argument);
 //    mde_pt1000_cfg((SYNC_PT1000_ARGU_PDEF)sync_pt1000_argument);

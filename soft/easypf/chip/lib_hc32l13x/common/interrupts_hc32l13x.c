@@ -261,12 +261,12 @@ void TIM3_IRQHandler(void)
  ** 
  ** \retval
  ******************************************************************************/
-void LPUART0_IRQHandler(void)
-{
-#if (INT_CALLBACK_ON == INT_CALLBACK_LPUART0)    
-    LpUart0_IRQHandler();
-#endif    
-}
+//void LPUART0_IRQHandler(void)
+//{
+//#if (INT_CALLBACK_ON == INT_CALLBACK_LPUART0)    
+//    LpUart0_IRQHandler();
+//#endif    
+//}
 
 /**
  *******************************************************************************

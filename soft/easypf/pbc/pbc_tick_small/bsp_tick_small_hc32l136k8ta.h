@@ -31,7 +31,7 @@
 static void bsp_clock_cfg(void)
 {
    #if defined (NDEBUG) && defined (BOOT_SUPPORT) //
-       *(volatile uint32_t*)0xE000ED08 = 0x00000800;  //app_vect_table
+       *(volatile uint32_t*)0xE000ED08 = 0x00002800;  //app_vect_table
    #endif
    M0P_SYSCTRL->PERI_CLKEN_f.FLASH = 1;
    M0P_BGR->CR_f.BGR_EN = 1;          //需要20us稳定时间,采用RCL时钟,38k，约一个指令周期，BGR PLL使用

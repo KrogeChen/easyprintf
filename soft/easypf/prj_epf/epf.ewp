@@ -1000,7 +1000,7 @@
         </option>
         <option>
           <name>Input description</name>
-          <state></state>
+          <state>Automatic choice of formatter.</state>
         </option>
         <option>
           <name>Output variant</name>
@@ -1009,7 +1009,7 @@
         </option>
         <option>
           <name>Output description</name>
-          <state></state>
+          <state>Automatic choice of formatter.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -1017,7 +1017,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -1031,7 +1031,7 @@
         </option>
         <option>
           <name>RTDescription</name>
-          <state></state>
+          <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
         </option>
         <option>
           <name>OGProductVersion</name>
@@ -1039,7 +1039,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state></state>
+          <state>7.70.1.11471</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1051,7 +1051,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state></state>
+          <state>HC32L136K8TA	HDSC HC32L136K8TA</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -1059,7 +1059,7 @@
         </option>
         <option>
           <name>GEndianModeBE</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OGBufferedTerminalOutput</name>
@@ -1085,16 +1085,16 @@
         </option>
         <option>
           <name>RTConfigPath2</name>
-          <state></state>
+          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
           <version>24</version>
-          <state>38</state>
+          <state>35</state>
         </option>
         <option>
           <name>OGUseCmsis</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OGUseCmsisDspLib</name>
@@ -1107,11 +1107,11 @@
         <option>
           <name>CoreVariant</name>
           <version>24</version>
-          <state>38</state>
+          <state>35</state>
         </option>
         <option>
           <name>GFPUDeviceSlave</name>
-          <state>-</state>
+          <state>HC32L136K8TA	HDSC HC32L136K8TA</state>
         </option>
         <option>
           <name>FPU2</name>
@@ -1130,7 +1130,7 @@
         <option>
           <name>GFPUCoreSlave2</name>
           <version>24</version>
-          <state>38</state>
+          <state>35</state>
         </option>
       </data>
     </settings>
@@ -1256,7 +1256,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.o</state>
         </option>
         <option>
           <name>CCLibConfigHeader</name>
@@ -1272,7 +1272,10 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state></state>
+          <state>$PROJ_DIR$\</state>
+          <state>$PROJ_DIR$\..\chip\lib_hc32l13x</state>
+          <state>$PROJ_DIR$\..\chip\lib_hc32l13x\common</state>
+          <state>$PROJ_DIR$\..\chip\lib_hc32l13x\driver\inc</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1301,7 +1304,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>1</state>
+          <state>3</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -1514,7 +1517,7 @@
         </option>
         <option>
           <name>AOutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.o</state>
         </option>
         <option>
           <name>AMultibyteSupport</name>
@@ -1560,7 +1563,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>3</version>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -1568,7 +1571,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state></state>
+          <state>epf.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -1576,7 +1579,7 @@
         </option>
         <option>
           <name>OOCObjCopyEnable</name>
-          <state>0</state>
+          <state>1</state>
         </option>
       </data>
     </settings>
@@ -1623,7 +1626,7 @@
         </option>
         <option>
           <name>IlinkOutputFile</name>
-          <state>###Unitialized###</state>
+          <state>epf.out</state>
         </option>
         <option>
           <name>IlinkDebugInfoEnable</name>
@@ -1683,11 +1686,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>lnk0t.icf</state>
+          <state>$PROJ_DIR$\hc32l13x_app.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1747,7 +1750,7 @@
         </option>
         <option>
           <name>IlinkProgramEntryLabel</name>
-          <state></state>
+          <state>__iar_program_start</state>
         </option>
         <option>
           <name>DoFill</name>
@@ -1935,6 +1938,18 @@
       <name>$PROJ_DIR$\..\app\app_epf_message.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\app\app_mbus.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\app_mbus.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\app_protocol_easyink.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\app_protocol_easyink.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\app\main.c</name>
     </file>
   </group>
@@ -1971,6 +1986,24 @@
       </file>
     </group>
     <group>
+      <name>mde_mbus_link</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\bsp_mbus_link.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\bsp_mbus_link.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\bsp_mbus_link_hc32l136k8ta.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\mde_mbus_link.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\mde_mbus_link.h</name>
+      </file>
+    </group>
+    <group>
       <name>mde_pilot_light</name>
       <file>
         <name>$PROJ_DIR$\..\mde\mde_pilot_light\bsp_pilot_light.c</name>
@@ -2004,6 +2037,36 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\mde\mde_rmcd_char\mde_rmcd_char.h</name>
+      </file>
+    </group>
+    <group>
+      <name>mde_storage_small</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\bsp_storage_small.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\bsp_storage_small.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\mde_storage_small.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\mde_storage_small.h</name>
+      </file>
+    </group>
+    <group>
+      <name>mde_watchdog</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\bps_watchdog.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\bps_watchdog.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\mde_watchdog.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\mde_watchdog.h</name>
       </file>
     </group>
   </group>

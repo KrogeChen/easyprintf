@@ -2326,6 +2326,18 @@
       <name>$PROJ_DIR$\..\app\app_epf_message.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\app\app_mbus.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\app_mbus.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\app_protocol_easyink.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\app\app_protocol_easyink.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\app\main.c</name>
     </file>
   </group>
@@ -2362,6 +2374,24 @@
       </file>
     </group>
     <group>
+      <name>mde_mbus_link</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\bsp_mbus_link.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\bsp_mbus_link.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\bsp_mbus_link_hc32l136k8ta.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\mde_mbus_link.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_mbus_link\mde_mbus_link.h</name>
+      </file>
+    </group>
+    <group>
       <name>mde_pilot_light</name>
       <file>
         <name>$PROJ_DIR$\..\mde\mde_pilot_light\bsp_pilot_light.c</name>
@@ -2395,6 +2425,36 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\mde\mde_rmcd_char\mde_rmcd_char.h</name>
+      </file>
+    </group>
+    <group>
+      <name>mde_storage_small</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\bsp_storage_small.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\bsp_storage_small.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\mde_storage_small.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_storage_small\mde_storage_small.h</name>
+      </file>
+    </group>
+    <group>
+      <name>mde_watchdog</name>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\bps_watchdog.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\bps_watchdog.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\mde_watchdog.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\mde\mde_watchdog\mde_watchdog.h</name>
       </file>
     </group>
   </group>

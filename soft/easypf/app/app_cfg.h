@@ -16,9 +16,9 @@
 #include "..\.\mde\mde_pilot_light\mde_pilot_light.h"
 #include "..\.\mde\mde_epf_accpet\mde_epf_accpet.h"
 #include "..\.\mde\mde_rmcd_char\mde_rmcd_char.h"
-//#include "..\.\mde\mde_watchdog\mde_watchdog.h"
-//#include "..\.\mde\mde_storage_small\mde_storage_small.h"
-//#include "..\.\mde\mde_mbus_link\mde_mbus_link.h"
+#include "..\.\mde\mde_watchdog\mde_watchdog.h"
+#include "..\.\mde\mde_storage_small\mde_storage_small.h"
+#include "..\.\mde\mde_mbus_link\mde_mbus_link.h"
 //
 //#include "..\.\mde\mde_dc_motor\mde_dc_motor.h"
 //#include "..\.\mde\mde_pt1000\mde_pt1000.h"
@@ -34,7 +34,8 @@
 //
 ////----------------------------------------------------------------------------
 #include ".\app_epf_message.h"
-//#include ".\app_mbus.h"
+#include ".\app_mbus.h"
+#include ".\app_protocol_easyink.h"
 //#include ".\app_storage.h"
 //#include ".\app_general.h"
 //#include ".\app_key.h"
