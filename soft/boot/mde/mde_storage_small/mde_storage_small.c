@@ -4,6 +4,11 @@
 #include ".\mde_storage_small.h"
 #include ".\bsp_storage_small.h"
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//modify:kroge
+//date:10/1/2022
+//map version 0x01信息段存储长度支持到16bits
+//boot默认采用version 0x00
+//------------------------------------------------------------------------------
 //最小版存储模块,带版本信息,方便存储区的升级管理
 //适用于8位机的存储模块
 //采用map+information的方式,inf size = INFOR.data(n byte)
@@ -11,19 +16,22 @@
 //|-----------------------------------------------------------------------|
 //|                    MAP(FIX-16B)                       |  INFOR(VAR)   |
 //|map tag|  cnt |inf ver|inf size|reserve|  id  |checksum| data |checksum|
-//|1 byte |2 byte|1 byte | 1 byte |2 byte |8 byte| 1 byte |n byte| 1 byte |
+//|1 byte |2 byte|1 byte | 2 byte |1 byte |8 byte| 1 byte |n byte| 1 byte |
 //|-----------------------------------------------------------------------|
 //map tag
 //bit1 bit0 map version
 //bit2 bit3 update tag
 //bit4-bit7 reserve
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#define DFT_MAP_VERSION    0x00
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define LOC_MAPTAG     0
 #define LOC_CNT_0      1
 #define LOC_CNT_1      2
 #define LOC_INFVER     3
 #define LOC_INFSIZE    4
-#define LOC_RES_0      5
+#define LOC_INFSEH     5//version !=0x00 信息段大小，高字节
 #define LOC_RES_1      6
 #define LOC_ID_0       7
 #define LOC_ID_1       8
@@ -95,10 +103,10 @@ static sdt_int8u sto_small_cs_append(sdt_int8u *pIn_data,sdt_int16u in_bytes,sdt
 //信息段校验
 //出口:sdt_ture 校验错误
 //------------------------------------------------------------------------------
-static sdt_bool sto_small_inf_err_check(sdt_int8u in_blockNum,sdt_int8u inf_bytes)
+static sdt_bool sto_small_inf_err_check(sdt_int8u in_blockNum,sdt_int16u inf_bytes)
 {
     sdt_int8u offset;
-    sdt_int8u eem_bytes;
+    sdt_int16u eem_bytes;
     sdt_int8u make_cs,cs;
     sdt_int8u rd_eem_data;
     
@@ -125,7 +133,7 @@ static sdt_bool sto_small_inf_err_check(sdt_int8u in_blockNum,sdt_int8u inf_byte
 //入口:数据指针,数据长度
 //出口:错误标识,sdt_true 发生校验错误
 //------------------------------------------------------------------------------
-static sdt_bool sto_small_mirror_err_check(sdt_int8u *pIn_mirror,sdt_int8u in_bytes)
+static sdt_bool sto_small_mirMap_err_check(sdt_int8u *pIn_mirror,sdt_int8u in_bytes)
 {
     sdt_int8u cs,make_cs;
     
@@ -176,10 +184,60 @@ static sdt_int8u sto_small_get_updateTag(sdt_int8u *pIn_map)
 //入口:map数据指针
 //出口:id位置索引
 //------------------------------------------------------------------------------
-static void sto_small_give_updateTag(sdt_int8u *pIn_map,sdt_int8u in_tag)
+static void sto_small_give_updateTag(sdt_int8u *pOut_map,sdt_int8u in_tag)
 {
-    pIn_map[LOC_MAPTAG] &= ~0x0c;
-    pIn_map[LOC_MAPTAG] |= (in_tag<<2) & 0x0c;  //掩码处理
+    pOut_map[LOC_MAPTAG] &= ~0x0c;
+    pOut_map[LOC_MAPTAG] |= (in_tag<<2) & 0x0c;  //掩码处理
+}
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+static sdt_int8u sto_samll_get_mapVersion(sdt_int8u *pIn_map)
+{
+    sdt_int8u tag;
+    
+    tag = (pIn_map[LOC_MAPTAG] & 0x03); //分离tag信息
+    return(tag);
+}
+//------------------------------------------------------------------------------
+static void sto_small_give_mapVersion(sdt_int8u *pOut_map,sdt_int8u in_tag)
+{
+    pOut_map[LOC_MAPTAG] &= ~0x03;
+    pOut_map[LOC_MAPTAG] |= (in_tag) & 0x03;  //掩码处理
+}
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+static sdt_int16u sto_samll_get_infSize(sdt_int8u *pIn_map)
+{
+    sdt_int8u rd_map_ver;
+    sdt_int16u rd_inf_size;
+    
+    rd_map_ver = sto_samll_get_mapVersion(pIn_map);
+    if(0x00 == rd_map_ver)
+    {
+        rd_inf_size = pIn_map[LOC_INFSIZE];
+    }
+    else
+    {
+        rd_inf_size = pIn_map[LOC_INFSEH];
+        rd_inf_size = rd_inf_size <<8;
+        rd_inf_size |= pIn_map[LOC_INFSIZE];
+    }
+    return(rd_inf_size);
+}
+//------------------------------------------------------------------------------
+static void sto_small_give_infSize(sdt_int8u *pOut_map,sdt_int16u in_infSize)
+{
+    sdt_int8u rd_map_ver;   
+
+    rd_map_ver = sto_samll_get_mapVersion(pOut_map);
+    if(0x00 == rd_map_ver)
+    {
+        pOut_map[LOC_INFSIZE] = in_infSize;
+        pOut_map[LOC_INFSEH] = 0xfe; //默认值
+    }
+    else
+    {
+        pOut_map[LOC_INFSIZE] = in_infSize;
+        pOut_map[LOC_INFSEH] = in_infSize >> 8;
+    }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ////功能:错误检测
@@ -207,15 +265,15 @@ static sdt_int8u get_sto_small_nowBlock(void)
     sdt_int8u now_block = 0;
     sdt_int8u rdSto_map[16];
     sdt_int16u map0_cycles,map1_cycles;
-    sdt_int8u map0_inf_size,map1_inf_size;
+    sdt_int16u map0_inf_size,map1_inf_size;
     
     sto_read_eepMonery_map(BLOCK_0,&rdSto_map[0]);              //读取map0的数据
     map0_cycles = sto_small_get_write_cycles(&rdSto_map[0]);    //计算map0的写入次数
-    map0_inf_size = rdSto_map[LOC_INFSIZE];
-    if(sto_small_mirror_err_check(&rdSto_map[0],16))
+    map0_inf_size = sto_samll_get_infSize(&rdSto_map[0]);
+    if(sto_small_mirMap_err_check(&rdSto_map[0],16))
     {//map0 error
         sto_read_eepMonery_map(BLOCK_1,&rdSto_map[0]);  //读取map1的数据
-        if(sto_small_mirror_err_check(&rdSto_map[0],sizeof(rdSto_map)))
+        if(sto_small_mirMap_err_check(&rdSto_map[0],sizeof(rdSto_map)))
         {//map1 error
             now_block = BLOCK_UN;  //0xFE
         }
@@ -235,8 +293,8 @@ static sdt_int8u get_sto_small_nowBlock(void)
     {
         sto_read_eepMonery_map(BLOCK_1,&rdSto_map[0]);  //读取map1的数据
         map1_cycles = sto_small_get_write_cycles(&rdSto_map[0]); 
-        map1_inf_size = rdSto_map[LOC_INFSIZE];        
-        if(sto_small_mirror_err_check(&rdSto_map[0],16))
+        map1_inf_size = sto_samll_get_infSize(&rdSto_map[0]);        
+        if(sto_small_mirMap_err_check(&rdSto_map[0],16))
         {
             if(sto_small_inf_err_check(BLOCK_0,map0_inf_size))  //信息段校验
             {
@@ -299,15 +357,11 @@ sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_in
 {
     sdt_int8u block_st;
     sdt_int8u rdSto_map[16];
-    sdt_int8u inf_bytes;
+    sdt_int16u inf_bytes;
     sdt_int8u cs,make_cs;
     sdt_int8u offset,rd_eem_data;
     sdt_int8u i;
     
-//    if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
     while(1)
     {
         block_st = get_sto_small_nowBlock();
@@ -316,13 +370,13 @@ sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_in
             return(0x01);
         }
         sto_read_eepMonery_map(block_st,&rdSto_map[0]);//获取map并校验
-        if(sto_small_mirror_err_check(&rdSto_map[0],16))
+        if(sto_small_mirMap_err_check(&rdSto_map[0],16))
         {
         }
         else
         {//获取inf并校验
             *pOut_infVer = rdSto_map[LOC_INFVER];
-            inf_bytes = rdSto_map[LOC_INFSIZE];                //提取信息段大小
+            inf_bytes = sto_samll_get_infSize(&rdSto_map[0]);   //提取信息段大小
             make_cs = sto_small_checksum(&rdSto_map[0],16);    //map区的checksum
             offset = 16;
             i = 0;
@@ -361,10 +415,6 @@ sdt_int8u mde_pull_storage_life(sdt_int16u *pOut_cycles)
     sdt_int8u rdSto_map[16];
     sdt_int8u block_st;
 
-//    if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
     while(1)
     {
         block_st = get_sto_small_nowBlock();
@@ -373,7 +423,7 @@ sdt_int8u mde_pull_storage_life(sdt_int16u *pOut_cycles)
             return(0x01);
         }
         sto_read_eepMonery_map(block_st,&rdSto_map[0]);//获取map并校验
-        if(sto_small_mirror_err_check(&rdSto_map[0],16))
+        if(sto_small_mirMap_err_check(&rdSto_map[0],16))
         {
         }
         else
@@ -390,16 +440,12 @@ sdt_int8u mde_pull_storage_life(sdt_int16u *pOut_cycles)
 //
 //出口:错误代码,00未发送错误，0x01 错误,
 //------------------------------------------------------------------------------
-sdt_int8u mde_pull_stoCapacity_inf(sdt_int8u *pOut_maxBytes,sdt_int8u *pOut_infBytes,sdt_int8u *pOut_infVer)
+sdt_int8u mde_pull_stoCapacity_inf(sdt_int16u *pOut_maxBytes,sdt_int16u *pOut_infBytes,sdt_int8u *pOut_infVer)
 {
     sdt_int8u rdSto_map[16];
     sdt_int8u block_st;
-    sdt_int8u rd_infBytes;
+    sdt_int16u rd_infBytes;
 
-//    if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
     while(1)
     {
         block_st = get_sto_small_nowBlock();
@@ -408,12 +454,12 @@ sdt_int8u mde_pull_stoCapacity_inf(sdt_int8u *pOut_maxBytes,sdt_int8u *pOut_infB
             return(0x01);
         }
         sto_read_eepMonery_map(block_st,&rdSto_map[0]);//获取map并校验
-        if(sto_small_mirror_err_check(&rdSto_map[0],16))
+        if(sto_small_mirMap_err_check(&rdSto_map[0],16))
         {
         }
         else
         {
-            rd_infBytes = rdSto_map[LOC_INFSIZE];
+            rd_infBytes = sto_samll_get_infSize(&rdSto_map[0]);
             *pOut_maxBytes = (MAX_EEBYTES - 17);
             *pOut_infBytes = rd_infBytes;
             *pOut_infVer = rdSto_map[LOC_INFVER];
@@ -436,10 +482,6 @@ sdt_int8u mde_pull_stoDeviceId(sdt_int8u *pOut_id,sdt_int8u in_idBytes)
     sdt_int8u dvId_index;
     sdt_int8u i;
 
-//     if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
     while(1)
     {
         block_st = get_sto_small_nowBlock();
@@ -448,7 +490,7 @@ sdt_int8u mde_pull_stoDeviceId(sdt_int8u *pOut_id,sdt_int8u in_idBytes)
             return(0x01);
         }
         sto_read_eepMonery_map(block_st,&rdSto_map[0]);//获取map并校验
-        if(sto_small_mirror_err_check(&rdSto_map[0],16))
+        if(sto_small_mirMap_err_check(&rdSto_map[0],16))
         {
         }
         else
@@ -480,10 +522,6 @@ sdt_int8u mde_pull_stoUpdateTag(sdt_int8u *pOut_tag)
     sdt_int8u rdSto_map[16];
     sdt_int8u block_st;
 
-//    if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
     while(1)
     {
         block_st = get_sto_small_nowBlock();
@@ -492,7 +530,7 @@ sdt_int8u mde_pull_stoUpdateTag(sdt_int8u *pOut_tag)
             return(UPTAG_NEEDUP);
         }
         sto_read_eepMonery_map(block_st,&rdSto_map[0]);//获取map并校验
-        if(sto_small_mirror_err_check(&rdSto_map[0],16))
+        if(sto_small_mirMap_err_check(&rdSto_map[0],16))
         {
         }
         else
@@ -510,19 +548,17 @@ sdt_int8u mde_pull_stoUpdateTag(sdt_int8u *pOut_tag)
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u in_infVer)
+sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int16u in_bytes,sdt_int8u in_infVer)
 {
     sdt_int8u rdSto_map[16];
     sdt_int8u block_st;
     sdt_int8u i;
     sdt_int16u map_cycles;
+    sdt_int16u lg_inf_bytes;
     STORAGE_EEF_DEF sto_eef;
+    
 
-//    if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
-
+    lg_inf_bytes = in_bytes;
     block_st = get_sto_small_nowBlock();
     if((BLOCK_0 == block_st) || (BLOCK_1 == block_st))
     {
@@ -531,7 +567,7 @@ sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u 
         map_cycles++;
         sto_small_give_write_cycles(&rdSto_map[0],map_cycles);
         rdSto_map[LOC_INFVER] = in_infVer;
-        rdSto_map[LOC_INFSIZE] = in_bytes;
+        sto_small_give_infSize(&rdSto_map[0],lg_inf_bytes);
         rdSto_map[15] = sto_small_checksum(&rdSto_map[0],15);
         if(BLOCK_0 == block_st)
         {
@@ -545,10 +581,10 @@ sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u 
         sto_eef.pIn_eefMap = &rdSto_map[0];
         sto_eef.in_eefMap_bytes = 16;
         sto_eef.pIn_eefInf = pIn_inf;  //
-        sto_eef.in_eefInf_bytes = in_bytes;
+        sto_eef.in_eefInf_bytes = lg_inf_bytes;
         sto_eef.in_eefCs = sto_small_checksum(&rdSto_map[0],16);
 
-        for(i = 0;i < in_bytes;i++)
+        for(i = 0;i < lg_inf_bytes;i++)
         {
             sto_eef.in_eefCs = sto_small_cs_append(&pIn_inf[i],1, sto_eef.in_eefCs);
         }
@@ -556,12 +592,12 @@ sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u 
     }
     else
     {
-        rdSto_map[0] = 0x00;
-        rdSto_map[1] = 0x00;
-        rdSto_map[2] = 0x00;
+        rdSto_map[LOC_MAPTAG] = 0;
+        sto_small_give_mapVersion(&rdSto_map[0],DFT_MAP_VERSION);
+        rdSto_map[LOC_CNT_0] = 0x00;
+        rdSto_map[LOC_CNT_1] = 0x00;
         rdSto_map[LOC_INFVER] = in_infVer;
-        rdSto_map[LOC_INFSIZE] = in_bytes;
-        rdSto_map[5] = 0xfe;
+        sto_small_give_infSize(&rdSto_map[0],lg_inf_bytes);
         rdSto_map[6] = 0xfe;
         for(i = 0;i < 8;i++)
         {
@@ -573,9 +609,9 @@ sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u 
         sto_eef.pIn_eefMap = &rdSto_map[0];
         sto_eef.in_eefMap_bytes = 16;
         sto_eef.pIn_eefInf = pIn_inf;  //
-        sto_eef.in_eefInf_bytes = in_bytes;
+        sto_eef.in_eefInf_bytes = lg_inf_bytes;
         sto_eef.in_eefCs = sto_small_checksum(&rdSto_map[0],16);
-        for(i = 0;i < in_bytes;i++)
+        for(i = 0;i < lg_inf_bytes;i++)
         {
             sto_eef.in_eefCs = sto_small_cs_append(&pIn_inf[i],1, sto_eef.in_eefCs);
         }
@@ -594,16 +630,12 @@ sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u 
 sdt_int8u mde_push_stoDeviceId(sdt_int8u *pIn_id,sdt_int8u in_idBytes)
 {
     sdt_int8u rdSto_map[16];
-    sdt_int8u block_st,inf_bytes;
+    sdt_int8u block_st;
+    sdt_int16u inf_bytes;
     sdt_int8u i;
     sdt_int8u offset,rd_eem_data;
     sdt_int16u map_cycles;
     STORAGE_EEF_DEF sto_eef;
-
-//    if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
 
     block_st = get_sto_small_nowBlock();
     if((BLOCK_0 == block_st) || (BLOCK_1 == block_st))
@@ -630,7 +662,7 @@ sdt_int8u mde_push_stoDeviceId(sdt_int8u *pIn_id,sdt_int8u in_idBytes)
             sto_eef.in_block = BLOCK_0;
         }
         
-        inf_bytes = rdSto_map[LOC_INFSIZE];
+        inf_bytes = sto_samll_get_infSize(&rdSto_map[0]);
         sto_eef.pIn_eefMap = &rdSto_map[0];
         sto_eef.in_eefMap_bytes = 16;
         sto_eef.pIn_eefInf = &rdSto_map[0];  //无效参数，随便填
@@ -648,12 +680,12 @@ sdt_int8u mde_push_stoDeviceId(sdt_int8u *pIn_id,sdt_int8u in_idBytes)
     }
     else
     {
-        rdSto_map[0] = 0x00;
-        rdSto_map[1] = 0x00;
-        rdSto_map[2] = 0x00;
-        rdSto_map[3] = 0x00;
-        rdSto_map[4] = 0x00;
-        rdSto_map[5] = 0xfe;
+        rdSto_map[LOC_MAPTAG] = 0;
+        sto_small_give_mapVersion(&rdSto_map[0],DFT_MAP_VERSION);
+        rdSto_map[LOC_CNT_0] = 0x00;
+        rdSto_map[LOC_CNT_1] = 0x00;
+        rdSto_map[LOC_INFVER] = 0x00;
+        sto_small_give_infSize(&rdSto_map[0],0);
         rdSto_map[6] = 0xfe;
         for(i = 0;i < 8;i++)
         {
@@ -682,16 +714,13 @@ sdt_int8u mde_push_stoDeviceId(sdt_int8u *pIn_id,sdt_int8u in_idBytes)
 sdt_int8u mde_push_stoUpdateTag(sdt_int8u in_newTag)
 {
     sdt_int8u rdSto_map[16];
-    sdt_int8u block_st,inf_bytes;
+    sdt_int8u block_st;
+    sdt_int16u inf_bytes;
     sdt_int8u i;
     sdt_int8u offset,rd_eem_data;
     sdt_int16u map_cycles;
     STORAGE_EEF_DEF sto_eef;
 
-//    if(sdt_false == cfged)
-//    {
-//        cfged = sdt_true;
-//    }
     block_st = get_sto_small_nowBlock();
     if((BLOCK_0 == block_st) || (BLOCK_1 == block_st))
     {
@@ -710,7 +739,8 @@ sdt_int8u mde_push_stoUpdateTag(sdt_int8u in_newTag)
             sto_eef.in_block = BLOCK_0;
         }
         
-        inf_bytes = rdSto_map[LOC_INFSIZE];
+        inf_bytes = sto_samll_get_infSize(&rdSto_map[0]);
+        
         sto_eef.pIn_eefMap = &rdSto_map[0];
         sto_eef.in_eefMap_bytes = 16;
         sto_eef.pIn_eefInf = &rdSto_map[0];  //无效参数，随便填
@@ -728,12 +758,12 @@ sdt_int8u mde_push_stoUpdateTag(sdt_int8u in_newTag)
     }
     else
     {
-        rdSto_map[0] = 0x00;
-        rdSto_map[1] = 0x00;
-        rdSto_map[2] = 0x00;
-        rdSto_map[3] = 0x00;
-        rdSto_map[4] = 0x00;
-        rdSto_map[5] = 0xfe;
+        rdSto_map[LOC_MAPTAG] = 0;
+        sto_small_give_mapVersion(&rdSto_map[0],DFT_MAP_VERSION);
+        rdSto_map[LOC_CNT_0] = 0x00;
+        rdSto_map[LOC_CNT_1] = 0x00;
+        rdSto_map[LOC_INFVER] = 0x00;
+        sto_small_give_infSize(&rdSto_map[0],0);
         rdSto_map[6] = 0xfe;
         for(i = 0;i < 8;i++)
         {

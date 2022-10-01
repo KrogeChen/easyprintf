@@ -6,12 +6,12 @@
     #include ".\snail_data_types.h"
 #endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define MAX_EEBYTES   128
+#define MAX_EEBYTES   512
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 typedef union
 {
-    sdt_int32u g_share_bf32[32];
-    sdt_int8u  g_share_bf8[128];  
+    sdt_int32u g_share_bf32[MAX_EEBYTES/4];
+    sdt_int8u  g_share_bf8[MAX_EEBYTES];  
 }G_SHARE_DEF;
 //------------------------------------------------------------------------------
 //typedef enum
@@ -28,7 +28,7 @@ typedef struct
     sdt_int8u *pIn_eefMap;
     sdt_int8u in_eefMap_bytes;
     sdt_int8u *pIn_eefInf;
-    sdt_int8u in_eefInf_bytes;
+    sdt_int16u in_eefInf_bytes;
     sdt_int8u in_eefCs;
 }STORAGE_EEF_DEF;
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

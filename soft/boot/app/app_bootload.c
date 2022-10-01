@@ -58,7 +58,7 @@ void app_bootload_task(void)
         }
         case bss_legalCheck:
         {
-            if(mde_pull_appSectionFiles_iegal())  
+            if(mde_pull_appSectionFiles_iegal(HARDWARE_MARK))  
             {
                 jumpToApplication();   //user.app数据合法
                 //bootStatus = bss_inBootRun;

@@ -1,5 +1,6 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include ".\snail_data_types.h"
+#include "..\..\pbc\pbc_data_convert\pbc_data_convert.h"
 #include ".\bsp_update_files.h"
 #include "..\.\mde_storage_small\bsp_storage_small.h"
 #include "hc32l13x.h"
@@ -21,7 +22,11 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define FLASHADDR_USERAPP    0x00002800
 #define FLASHADDR_USAINF     0x0000F780   //尾端32bytes,信息标识
+#define FLASHADDR_LASTPAGE   0x0000F600   //最后一个块
 #define PAGE_UNIT_SIZE       512
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//硬件标识位置
+#define FLASHADDR_HWFG_APP   (FLASHADDR_USERAPP + 0x000000C0)
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 typedef void (*pFunction)(void);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -68,23 +73,29 @@ void program_block_flash(sdt_int16u in_addr,sdt_bool in_inf)
             M0P_FLASH->CR_f.OP = 0x02;       //sector erase
         }while(0x02 != M0P_FLASH->CR_f.OP);
 
-        *((sdt_int8u*)FLASHADDR_USAINF) = 0x00;   //Erase  page
+        *((sdt_int8u*)FLASHADDR_LASTPAGE) = 0x00;   //Erase  page
         while(0 != M0P_FLASH->CR_f.BUSY)
         {
         }
     }
     if(0 == (local_addr%PAGE_UNIT_SIZE))  //page地址(512)
     {
-        do
+        if(FLASHADDR_LASTPAGE == local_addr)
         {
-            M0P_FLASH->BYPASS = 0x5A5A;      //unlock
-            M0P_FLASH->BYPASS = 0xA5A5; 
-            M0P_FLASH->CR_f.OP = 0x02;       //sector erase
-        }while(0x02 != M0P_FLASH->CR_f.OP);
+        }
+        else
+        {
+            do
+            {
+                M0P_FLASH->BYPASS = 0x5A5A;      //unlock
+                M0P_FLASH->BYPASS = 0xA5A5; 
+                M0P_FLASH->CR_f.OP = 0x02;       //sector erase
+            }while(0x02 != M0P_FLASH->CR_f.OP);
 
-        *((sdt_int8u*)local_addr) = 0x00;   //Erase  page
-        while(0 != M0P_FLASH->CR_f.BUSY)
-        {
+            *((sdt_int8u*)local_addr) = 0x00;   //Erase  page
+            while(0 != M0P_FLASH->CR_f.BUSY)
+            {
+            }
         }
     }
     
@@ -175,5 +186,14 @@ void bsp_write_userApp_128bytes(sdt_int32u in_addrOffset,sdt_int8u *pIn_buff)
     
     flash_addr = FLASHADDR_USERAPP + in_addrOffset;
     program_block_flash(flash_addr,sdt_false);
+}
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//功能:获取APP区硬件标识
+//入口:none
+//出口:32bit的硬件标识
+//------------------------------------------------------------------------------
+sdt_int32u bsp_pull_hardware_flag(void)
+{
+    return(pbc_arrayToInt32u_bigEndian((sdt_int8u*)FLASHADDR_HWFG_APP));
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -38,7 +38,7 @@ sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_in
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u in_infVer);
+sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int16u in_bytes,sdt_int8u in_infVer);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //名称: 获取存储体的操作次数
@@ -55,7 +55,7 @@ sdt_int8u mde_pull_storage_life(sdt_int16u *pOut_cycles);
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_pull_stoCapacity_inf(sdt_int8u *pOut_maxBytes,sdt_int8u *pOut_infBytes,sdt_int8u *pOut_infVer);
+sdt_int8u mde_pull_stoCapacity_inf(sdt_int16u *pOut_maxBytes,sdt_int16u *pOut_infBytes,sdt_int8u *pOut_infVer);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //名称: 获取存储id序列
@@ -90,6 +90,8 @@ sdt_int8u mde_push_stoDeviceId(sdt_int8u *pIn_id,sdt_int8u in_idBytes);
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
 sdt_int8u mde_push_stoUpdateTag(sdt_int8u in_newTag);
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

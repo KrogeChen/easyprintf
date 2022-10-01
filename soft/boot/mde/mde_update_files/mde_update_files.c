@@ -288,10 +288,10 @@ sdt_bool mde_pull_updateFiles_nextBlock(sdt_int16u *pOut_block)
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //------------------------------------------------------------------------------
 //名称:APP运行区的数据合法判断
-//入口:
+//入口:硬件标识
 //出口:sdt_true -- 数据合法
 //------------------------------------------------------------------------------
-sdt_bool mde_pull_appSectionFiles_iegal(void)
+sdt_bool mde_pull_appSectionFiles_iegal(sdt_int32u in_hardware_flag)
 {
     sdt_int8u rd_buff[32];
     sdt_int32u update_codesize,update_codesize_anti;
@@ -299,6 +299,10 @@ sdt_bool mde_pull_appSectionFiles_iegal(void)
     sdt_int32u make_cs,rd_32bits;
     sdt_int32u i,words,offset;
     
+    if(in_hardware_flag != bsp_pull_hardware_flag()) //硬件标识错误
+    {
+        return(sdt_false);
+    }
     bsp_read_information_userApp(&rd_buff[0]);
     update_cs_anti = pbc_arrayToInt32u_bigEndian(&rd_buff[8]);
     update_codesize_anti = pbc_arrayToInt32u_bigEndian(&rd_buff[12]);
