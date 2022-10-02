@@ -43,7 +43,10 @@ static sdt_int8u answer_buff[6];
 //入口:接收的数据长度和指针,应答的数据长度和指针\
 //出口:sdt_true 文件传输完成
 //------------------------------------------------------------------------------
+#ifndef NDEBUG
 static sdt_int32u test_flag;
+#endif
+//------------------------------------------------------------------------------
 sdt_bool app_easyink_message_exchange(EZINK_MSG_DEF *mix_ezink_msg)
 {
     sdt_bool   complete = sdt_false;
@@ -111,7 +114,9 @@ sdt_bool app_easyink_message_exchange(EZINK_MSG_DEF *mix_ezink_msg)
                     error = mde_push_updateFiles_oneBlock(&mix_ezink_msg->pEik_apt_buff[PK_BFILES],files_number); //解码
                     if(HARDWARE_SEQ == files_number)
                     {
+                        #ifndef NDEBUG
                         test_flag = pbc_arrayToInt32u_bigEndian(&mix_ezink_msg->pEik_apt_buff[PK_BFILES + HARDWARE_LOC]);
+                        #endif
                         if(HARDWARE_MARK != pbc_arrayToInt32u_bigEndian(&mix_ezink_msg->pEik_apt_buff[PK_BFILES + HARDWARE_LOC]))
                         {
                             error = ERRUF_FIREWARE;  //固件标识错误

@@ -23,8 +23,7 @@
 //bit2 bit3 update tag
 //bit4-bit7 reserve
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define DFT_MAP_VERSION    0x00
-
+#define DFT_MAP_VERSION    MAPVER_SMALL
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define LOC_MAPTAG     0
 #define LOC_CNT_0      1
@@ -210,7 +209,7 @@ static sdt_int16u sto_samll_get_infSize(sdt_int8u *pIn_map)
     sdt_int16u rd_inf_size;
     
     rd_map_ver = sto_samll_get_mapVersion(pIn_map);
-    if(0x00 == rd_map_ver)
+    if(MAPVER_SMALL == rd_map_ver)
     {
         rd_inf_size = pIn_map[LOC_INFSIZE];
     }
@@ -228,7 +227,7 @@ static void sto_small_give_infSize(sdt_int8u *pOut_map,sdt_int16u in_infSize)
     sdt_int8u rd_map_ver;   
 
     rd_map_ver = sto_samll_get_mapVersion(pOut_map);
-    if(0x00 == rd_map_ver)
+    if(MAPVER_SMALL == rd_map_ver)
     {
         pOut_map[LOC_INFSIZE] = in_infSize;
         pOut_map[LOC_INFSEH] = 0xfe; //默认值

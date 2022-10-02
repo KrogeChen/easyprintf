@@ -38,8 +38,8 @@ void bsp_jump_userApp(void)
     pFunction Jump_To_Application;
     
     #ifdef NDEBUG
-    //M0P_WDT->RST = 0x1E;
-    //M0P_WDT->RST = 0xE1;
+    M0P_WDT->RST = 0x1E;
+    M0P_WDT->RST = 0xE1;
     #endif
     __disable_interrupt();
     /* Jump to user application */
