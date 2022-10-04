@@ -41,7 +41,7 @@ void bsp_blockflash_cfg(void);
 //入口:存储块序号，偏移位置
 //出口:读取的数据
 //------------------------------------------------------------------------------
-sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int8u in_offset);
+sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int16u in_offset);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //功能:写入EEPROM一串数据
 //入口:eep数据信息结构指针

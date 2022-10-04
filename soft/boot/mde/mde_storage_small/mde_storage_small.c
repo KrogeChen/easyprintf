@@ -104,7 +104,7 @@ static sdt_int8u sto_small_cs_append(sdt_int8u *pIn_data,sdt_int16u in_bytes,sdt
 //------------------------------------------------------------------------------
 static sdt_bool sto_small_inf_err_check(sdt_int8u in_blockNum,sdt_int16u inf_bytes)
 {
-    sdt_int8u offset;
+    sdt_int16u offset;
     sdt_int16u eem_bytes;
     sdt_int8u make_cs,cs;
     sdt_int8u rd_eem_data;
@@ -230,7 +230,7 @@ static void sto_small_give_infSize(sdt_int8u *pOut_map,sdt_int16u in_infSize)
     if(MAPVER_SMALL == rd_map_ver)
     {
         pOut_map[LOC_INFSIZE] = in_infSize;
-        pOut_map[LOC_INFSEH] = 0xfe; //默认值
+        pOut_map[LOC_INFSEH] = 0x00; //默认值
     }
     else
     {
@@ -352,14 +352,15 @@ static sdt_int8u get_sto_small_nowBlock(void)
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_int8u in_maxBytes)
+sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_int16u in_maxBytes)
 {
     sdt_int8u block_st;
     sdt_int8u rdSto_map[16];
     sdt_int16u inf_bytes;
     sdt_int8u cs,make_cs;
-    sdt_int8u offset,rd_eem_data;
-    sdt_int8u i;
+    sdt_int16u offset;
+    sdt_int8u  rd_eem_data;
+    sdt_int16u i;
     
     while(1)
     {
@@ -551,19 +552,29 @@ sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int16u in_bytes,sdt_int8u
 {
     sdt_int8u rdSto_map[16];
     sdt_int8u block_st;
-    sdt_int8u i;
+    sdt_int16u i;
     sdt_int16u map_cycles;
     sdt_int16u lg_inf_bytes;
+    sdt_int8u map_tag;
     STORAGE_EEF_DEF sto_eef;
     
 
     lg_inf_bytes = in_bytes;
+    if(lg_inf_bytes > 255)
+    {
+        map_tag = MAPVER_MIDDLE;
+    }
+    else
+    {
+        map_tag = MAPVER_SMALL;
+    }
     block_st = get_sto_small_nowBlock();
     if((BLOCK_0 == block_st) || (BLOCK_1 == block_st))
     {
         sto_read_eepMonery_map(block_st,&rdSto_map[0]);
         map_cycles = sto_small_get_write_cycles(&rdSto_map[0]);
         map_cycles++;
+        sto_small_give_mapVersion(&rdSto_map[0],map_tag);     //new map
         sto_small_give_write_cycles(&rdSto_map[0],map_cycles);
         rdSto_map[LOC_INFVER] = in_infVer;
         sto_small_give_infSize(&rdSto_map[0],lg_inf_bytes);
@@ -592,7 +603,7 @@ sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int16u in_bytes,sdt_int8u
     else
     {
         rdSto_map[LOC_MAPTAG] = 0;
-        sto_small_give_mapVersion(&rdSto_map[0],DFT_MAP_VERSION);
+        sto_small_give_mapVersion(&rdSto_map[0],map_tag);
         rdSto_map[LOC_CNT_0] = 0x00;
         rdSto_map[LOC_CNT_1] = 0x00;
         rdSto_map[LOC_INFVER] = in_infVer;
@@ -632,7 +643,8 @@ sdt_int8u mde_push_stoDeviceId(sdt_int8u *pIn_id,sdt_int8u in_idBytes)
     sdt_int8u block_st;
     sdt_int16u inf_bytes;
     sdt_int8u i;
-    sdt_int8u offset,rd_eem_data;
+    sdt_int16u offset;
+    sdt_int8u  rd_eem_data;
     sdt_int16u map_cycles;
     STORAGE_EEF_DEF sto_eef;
 
@@ -716,7 +728,8 @@ sdt_int8u mde_push_stoUpdateTag(sdt_int8u in_newTag)
     sdt_int8u block_st;
     sdt_int16u inf_bytes;
     sdt_int8u i;
-    sdt_int8u offset,rd_eem_data;
+    sdt_int16u offset;
+    sdt_int8u  rd_eem_data;
     sdt_int16u map_cycles;
     STORAGE_EEF_DEF sto_eef;
 

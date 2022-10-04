@@ -5,12 +5,24 @@
     #include ".\depend\snail_data_types.h"
 #endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//VER_01 2022-08-09
+//modify:kroge
+//date:10/1/2022
+//VER_02
+//map version 0x01信息段存储长度支持到16bits
+//支持map版本的判断功能
+//struct:MAPVER_MIDDLE
+//|-----------------------------------------------------------------------|
+//|                    MAP(FIX-16B)                       |  INFOR(VAR)   |
+//|map tag|  cnt |inf ver|inf size|reserve|  id  |checksum| data |checksum|
+//|1 byte |2 byte|1 byte | 2 byte |1 byte |8 byte| 1 byte |n byte| 1 byte |
+//|-----------------------------------------------------------------------|
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//VER_01 2022-08-09
+//------------------------------------------------------------------------------
 //最小版存储模块,带版本信息,方便存储区的升级管理
 //适用于8位机的存储模块
 //采用map+information的方式,inf size = INFOR.data(n byte)
-//struct:
+//struct:MAPVER_SMALL
 //|-----------------------------------------------------------------------|
 //|                    MAP(FIX-16B)                       |  INFOR(VAR)   |
 //|map tag|  cnt |inf ver|inf size|reserve|  id  |checksum| data |checksum|
@@ -21,6 +33,9 @@
 //bit2 bit3 update tag
 //bit4-bit7 reserve
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#define MAPVER_SMALL             0x00//信息区8bit长度
+#define MAPVER_MIDDLE            0x01//信息区16bit长度
+//------------------------------------------------------------------------------
 #define UPTAG_NONE               0x00
 #define UPTAG_NEEDUP             0x01 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -30,7 +45,7 @@
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_int8u in_maxBytes);
+sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_int16u in_maxBytes);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //名称: 写入信息序列数据
 //功能: 
@@ -38,7 +53,7 @@ sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_in
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int8u in_bytes,sdt_int8u in_infVer);
+sdt_int8u mde_write_storage_inf(sdt_int8u *pIn_inf,sdt_int16u in_bytes,sdt_int8u in_infVer);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //名称: 获取存储体的操作次数
@@ -55,7 +70,7 @@ sdt_int8u mde_pull_storage_life(sdt_int16u *pOut_cycles);
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_pull_stoCapacity_inf(sdt_int8u *pOut_maxBytes,sdt_int8u *pOut_infBytes,sdt_int8u *pOut_infVer);
+sdt_int8u mde_pull_stoCapacity_inf(sdt_int16u *pOut_maxBytes,sdt_int16u *pOut_infBytes,sdt_int8u *pOut_infVer);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //名称: 获取存储id序列
@@ -90,6 +105,8 @@ sdt_int8u mde_push_stoDeviceId(sdt_int8u *pIn_id,sdt_int8u in_idBytes);
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
 sdt_int8u mde_push_stoUpdateTag(sdt_int8u in_newTag);
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

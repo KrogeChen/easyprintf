@@ -3,20 +3,19 @@
 //version:10
 //date: 10/12/2020
 //------------------------------------------------------------------------------
+//modify:压缩内存消耗,采用统一的收、发数据缓冲区
+//date:  09/18/2022
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "..\..\pbc\pbc_tick_small\pbc_tick_small.h"
 //------------------------------------------------------------------------------
 #include ".\bsp_mbus_link.h"
 #include ".\mde_mbus_link.h"
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define PREABBLE_LEN    3
 #define SYB_PREAMBLE    0xfe
 #define SYB_SFD         0x68
 //------------------------------------------------------------------------------
 #define TIMEOUTV        1000
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define max_rxd_len        max_payload_len + 13
-#define max_txd_len        TX_PAYLOD_LEN + 13 + preamble_len
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 typedef enum
 {
@@ -44,12 +43,8 @@ typedef struct
     mbk_trans_mon_def     transmit_monitor;
     mbslk_run_status_def  mbslk_run_status;
     
-    sdt_int8u             rx_buff[max_rxd_len];
-    sdt_int16u            receive_len;
-    sdt_int16u            receive_index;
-    sdt_int8u             tx_buff[max_txd_len];
-    sdt_int16u            transmit_len;
-    sdt_int16u            transmit_index;
+    sdt_int16u            trx_len;
+    sdt_int16u            trx_index;
     
     timerClock_def        timer_rx_timeout;    
     timerClock_def        timer_tx_timeout;  
@@ -122,9 +117,10 @@ static void mbus_link_status_jump(mbslk_oper_def* mix_pMbslk_oper)
                     mix_pMbslk_oper->mbslk_bits &= ~mbslk_bits_rx_byte;
                     if(SYB_SFD == mix_pMbslk_oper->rx_byte)
                     {
-                        mix_pMbslk_oper->rx_buff[0] = mix_pMbslk_oper->rx_byte;
+                        mix_pMbslk_oper->mbus_link_buff.raw_payload[RX_IDX_OFFSET] = mix_pMbslk_oper->rx_byte;
+                        mix_pMbslk_oper->trx_index = RX_IDX_OFFSET + 1;
                         mix_pMbslk_oper->mbslk_run_status = mbslk_rs_rx_len;
-                        mix_pMbslk_oper->receive_index = 1;
+                        
                         pbc_reload_timerClock(&mix_pMbslk_oper->timer_rx_timeout,TIMEOUTV);
                     }  
                 }
@@ -136,12 +132,12 @@ static void mbus_link_status_jump(mbslk_oper_def* mix_pMbslk_oper)
                 {
                     mix_pMbslk_oper->mbslk_bits &= ~mbslk_bits_rx_byte;
                     
-                    mix_pMbslk_oper->rx_buff[mix_pMbslk_oper->receive_index] = mix_pMbslk_oper->rx_byte;
-                    mix_pMbslk_oper->receive_index ++;
-                    if(mix_pMbslk_oper->receive_index > 10)
+                    mix_pMbslk_oper->mbus_link_buff.raw_payload[mix_pMbslk_oper->trx_index] = mix_pMbslk_oper->rx_byte;
+                    mix_pMbslk_oper->trx_index ++;
+                    if(mix_pMbslk_oper->trx_index > (10 + RX_IDX_OFFSET))
                     {
-                        mix_pMbslk_oper->receive_len = (sdt_int16u)mix_pMbslk_oper->rx_byte + 13;
-                        if(mix_pMbslk_oper->receive_len > max_rxd_len)  //长度溢出
+                        mix_pMbslk_oper->trx_len = (sdt_int16u)mix_pMbslk_oper->rx_byte + 13;
+                        if(mix_pMbslk_oper->trx_len > MAX_RXD_LEN)  //长度溢出
                         {
                             mix_pMbslk_oper->mbslk_run_status = mbslk_rs_idle;
                             pbc_stop_timerIsOnceTriggered(&mix_pMbslk_oper->timer_rx_timeout);
@@ -161,30 +157,15 @@ static void mbus_link_status_jump(mbslk_oper_def* mix_pMbslk_oper)
                 {
                     mix_pMbslk_oper->mbslk_bits &= ~mbslk_bits_rx_byte;
                     
-                    mix_pMbslk_oper->rx_buff[mix_pMbslk_oper->receive_index] = mix_pMbslk_oper->rx_byte;
-                    if((mix_pMbslk_oper->receive_index + 1) >= mix_pMbslk_oper->receive_len)
+                    mix_pMbslk_oper->mbus_link_buff.raw_payload[mix_pMbslk_oper->trx_index] = mix_pMbslk_oper->rx_byte;
+                    if((mix_pMbslk_oper->trx_index + 1 - RX_IDX_OFFSET) >= mix_pMbslk_oper->trx_len)
                     {
                         sdt_int8u calculate_cs;
                         
-                        calculate_cs = make_checksum(&mix_pMbslk_oper->rx_buff[0],(mix_pMbslk_oper->receive_len - 2));
-                        if((0x68 == mix_pMbslk_oper->rx_buff[0]) && (0x16 == mix_pMbslk_oper->rx_buff[mix_pMbslk_oper->receive_len - 1]) &&\
-                           (calculate_cs == mix_pMbslk_oper->rx_buff[mix_pMbslk_oper->receive_len - 2]))
+                        calculate_cs = make_checksum(&mix_pMbslk_oper->mbus_link_buff.raw_payload[RX_IDX_OFFSET],(mix_pMbslk_oper->trx_len - 2));
+                        if((0x68 == mix_pMbslk_oper->mbus_link_buff.raw_payload[RX_IDX_OFFSET]) && (0x16 == mix_pMbslk_oper->mbus_link_buff.raw_payload[mix_pMbslk_oper->trx_len + RX_IDX_OFFSET - 1]) &&\
+                           (calculate_cs == mix_pMbslk_oper->mbus_link_buff.raw_payload[mix_pMbslk_oper->trx_len + RX_IDX_OFFSET - 2]))
                         {
-                            mix_pMbslk_oper->mbus_link_buff.meter_type = mix_pMbslk_oper->rx_buff[1];
-                            mix_pMbslk_oper->mbus_link_buff.meter_addr[0] = mix_pMbslk_oper->rx_buff[2];
-                            mix_pMbslk_oper->mbus_link_buff.meter_addr[1] = mix_pMbslk_oper->rx_buff[3];
-                            mix_pMbslk_oper->mbus_link_buff.meter_addr[2] = mix_pMbslk_oper->rx_buff[4];
-                            mix_pMbslk_oper->mbus_link_buff.meter_addr[3] = mix_pMbslk_oper->rx_buff[5];
-                            mix_pMbslk_oper->mbus_link_buff.meter_addr[4] = mix_pMbslk_oper->rx_buff[6];
-                            mix_pMbslk_oper->mbus_link_buff.meter_addr[5] = mix_pMbslk_oper->rx_buff[7];
-                            mix_pMbslk_oper->mbus_link_buff.meter_addr[6] = mix_pMbslk_oper->rx_buff[8];
-                            mix_pMbslk_oper->mbus_link_buff.control_code = mix_pMbslk_oper->rx_buff[9];
-                            mix_pMbslk_oper->mbus_link_buff.payload_len = mix_pMbslk_oper->rx_buff[10];
-                            sdt_int8u i;
-                            for(i = 0;i < (mix_pMbslk_oper->mbus_link_buff.payload_len);i++)
-                            {
-                                mix_pMbslk_oper->mbus_link_buff.payload[i] = mix_pMbslk_oper->rx_buff[i+11];
-                            }
                             mix_pMbslk_oper->mbslk_bits |= mbslk_bits_message_rx;  //产生一个报文
                             mix_pMbslk_oper->mbslk_run_status = mbslk_rs_rx_complete;
                         }
@@ -194,25 +175,14 @@ static void mbus_link_status_jump(mbslk_oper_def* mix_pMbslk_oper)
                         }
                         pbc_stop_timerIsOnceTriggered(&mix_pMbslk_oper->timer_rx_timeout);
                     }
-                    mix_pMbslk_oper->receive_index ++;
+                    mix_pMbslk_oper->trx_index ++;
                 }
                 break;
             }
             case mbslk_rs_rx_complete:
             {
-                if(mix_pMbslk_oper->mbslk_bits & mbslk_bits_message_rx)
+                if(mix_pMbslk_oper->mbslk_bits & mbslk_bits_message_rx)//等待数据被读取
                 {
-                    if(mbslk_bits_rx_byte & mix_pMbslk_oper->mbslk_bits)
-                    {
-                        mix_pMbslk_oper->mbslk_bits &= ~mbslk_bits_rx_byte;
-                        if(SYB_SFD == mix_pMbslk_oper->rx_byte)
-                        {
-                            mix_pMbslk_oper->rx_buff[0] = mix_pMbslk_oper->rx_byte;
-                            mix_pMbslk_oper->mbslk_run_status = mbslk_rs_rx_len;
-                            mix_pMbslk_oper->receive_index = 1;
-                            pbc_reload_timerClock(&mix_pMbslk_oper->timer_rx_timeout,TIMEOUTV);//如果有持续数据，进行新一轮的接收
-                        }  
-                    }
                 }
                 else
                 {
@@ -230,69 +200,39 @@ static void mbus_link_status_jump(mbslk_oper_def* mix_pMbslk_oper)
                 {
                     if(PandSFD_Index == PREABBLE_LEN)
                     {
-                        mix_pMbslk_oper->tx_buff[PandSFD_Index] = SYB_SFD;
+                        mix_pMbslk_oper->mbus_link_buff.raw_payload[PandSFD_Index] = SYB_SFD;
                     }
                     else
                     {
-                        mix_pMbslk_oper->tx_buff[PandSFD_Index] = SYB_PREAMBLE;
+                        mix_pMbslk_oper->mbus_link_buff.raw_payload[PandSFD_Index] = SYB_PREAMBLE;
                     }
                     PandSFD_Index++;
                 }
 
                 Data_Length = mix_pMbslk_oper->mbus_link_buff.payload_len + 12;
-                if((PandSFD_Index+Data_Length) > max_txd_len)
-                {
-                    mix_pMbslk_oper->transmit_monitor = mbk_trans_mon_error;
-                    mix_pMbslk_oper->mbslk_run_status = mbslk_rs_idle;
-                    pbc_stop_timerIsOnceTriggered(&mix_pMbslk_oper->timer_tx_timeout);
-                }
-                else
-                {
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+0] = mix_pMbslk_oper->mbus_link_buff.meter_type;
-                    
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+1] = mix_pMbslk_oper->mbus_link_buff.meter_addr[0];
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+2] = mix_pMbslk_oper->mbus_link_buff.meter_addr[1];
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+3] = mix_pMbslk_oper->mbus_link_buff.meter_addr[2];
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+4] = mix_pMbslk_oper->mbus_link_buff.meter_addr[3];
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+5] = mix_pMbslk_oper->mbus_link_buff.meter_addr[4];
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+6] = mix_pMbslk_oper->mbus_link_buff.meter_addr[5];
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+7] = mix_pMbslk_oper->mbus_link_buff.meter_addr[6];
-                    
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+8] = mix_pMbslk_oper->mbus_link_buff.control_code;
-                    mix_pMbslk_oper->tx_buff[PandSFD_Index+9] = mix_pMbslk_oper->mbus_link_buff.payload_len;
+                
+                mix_pMbslk_oper->mbus_link_buff.raw_payload[(PandSFD_Index+10)+mix_pMbslk_oper->mbus_link_buff.payload_len] = make_checksum(&mix_pMbslk_oper->mbus_link_buff.raw_payload[PREABBLE_LEN],(mix_pMbslk_oper->mbus_link_buff.payload_len+11));
+                mix_pMbslk_oper->mbus_link_buff.raw_payload[(PandSFD_Index+10)+mix_pMbslk_oper->mbus_link_buff.payload_len + 1] = 0x16;
 
+                mix_pMbslk_oper->trx_len = PandSFD_Index+Data_Length;  //需要传送的字节数
+                mix_pMbslk_oper->trx_index = 0;
+                pbc_reload_timerClock(&mix_pMbslk_oper->timer_tx_timeout,TIMEOUTV);
 
-                    
-                    sdt_int8u i;
-                    for(i = 0; i < mix_pMbslk_oper->mbus_link_buff.payload_len;i++)
-                    {
-                        mix_pMbslk_oper->tx_buff[(PandSFD_Index+10)+i] = mix_pMbslk_oper->mbus_link_buff.payload[i];
-                    }
-                    mix_pMbslk_oper->tx_buff[(PandSFD_Index+10)+mix_pMbslk_oper->mbus_link_buff.payload_len] = make_checksum(&mix_pMbslk_oper->tx_buff[PREABBLE_LEN],(mix_pMbslk_oper->mbus_link_buff.payload_len+11));
-                    mix_pMbslk_oper->tx_buff[(PandSFD_Index+10)+mix_pMbslk_oper->mbus_link_buff.payload_len + 1] = 0x16;
-
-                    
-                    mix_pMbslk_oper->transmit_len = PandSFD_Index+Data_Length;  //需要传送的字节数
-                    mix_pMbslk_oper->transmit_index = 0;
-                    pbc_reload_timerClock(&mix_pMbslk_oper->timer_tx_timeout,TIMEOUTV);
-
-                    mix_pMbslk_oper->entry_phy_tx();               //进入tx模式
-                    mix_pMbslk_oper->mbslk_bits &= ~mbslk_bits_rx_byte;
-
-                    
-                    sdt_int16u remain_bytes;
-                    
-                    remain_bytes = mix_pMbslk_oper->transfet_bytes_to_phy_tx(&mix_pMbslk_oper->tx_buff[mix_pMbslk_oper->transmit_index],(mix_pMbslk_oper->transmit_len - mix_pMbslk_oper->transmit_index));
-                    mix_pMbslk_oper->transmit_index = mix_pMbslk_oper->transmit_len - remain_bytes;
-                    mix_pMbslk_oper->mbslk_run_status = mbslk_rs_tx_doing;
-                }
+                mix_pMbslk_oper->entry_phy_tx();               //进入tx模式
+                mix_pMbslk_oper->mbslk_bits &= ~mbslk_bits_rx_byte;
+                
+                sdt_int16u remain_bytes;
+                
+                remain_bytes = mix_pMbslk_oper->transfet_bytes_to_phy_tx(&mix_pMbslk_oper->mbus_link_buff.raw_payload[mix_pMbslk_oper->trx_index],(mix_pMbslk_oper->trx_len - mix_pMbslk_oper->trx_index));
+                mix_pMbslk_oper->trx_index = mix_pMbslk_oper->trx_len - remain_bytes;
+                mix_pMbslk_oper->mbslk_run_status = mbslk_rs_tx_doing;
                 break;
             }
             case mbslk_rs_tx_doing:
             {
                 sdt_int16u remain_bytes;
                 
-                if(mix_pMbslk_oper->transmit_index == mix_pMbslk_oper->transmit_len) //数据转移完毕,检测PHY发送完成
+                if(mix_pMbslk_oper->trx_index == mix_pMbslk_oper->trx_len) //数据转移完毕,检测PHY发送完成
                 {
                     if(mix_pMbslk_oper->pull_complete_tx_data())
                     {
@@ -303,8 +243,8 @@ static void mbus_link_status_jump(mbslk_oper_def* mix_pMbslk_oper)
                 }
                 else
                 {
-                    remain_bytes = mix_pMbslk_oper->transfet_bytes_to_phy_tx(&mix_pMbslk_oper->tx_buff[mix_pMbslk_oper->transmit_index],(mix_pMbslk_oper->transmit_len - mix_pMbslk_oper->transmit_index));
-                    mix_pMbslk_oper->transmit_index = mix_pMbslk_oper->transmit_len - remain_bytes;               
+                    remain_bytes = mix_pMbslk_oper->transfet_bytes_to_phy_tx(&mix_pMbslk_oper->mbus_link_buff.raw_payload[mix_pMbslk_oper->trx_index],(mix_pMbslk_oper->trx_len - mix_pMbslk_oper->trx_index));
+                    mix_pMbslk_oper->trx_index = mix_pMbslk_oper->trx_len - remain_bytes;               
                 }
                 break;
             }
@@ -332,11 +272,10 @@ static void alone_mbus_link_task(mbslk_oper_def* mix_pMbslk_oper)
     mbus_link_status_jump(mix_pMbslk_oper);
 }
 //++++++++++++++++++++++++++++++++++++interface+++++++++++++++++++++++++++++++++
+static sdt_bool cfged = sdt_false;
 //------------------------------------------------------------------------------
 void mde_mbus_link_task(void)
 {
-    static sdt_bool cfged = sdt_false;
-
     if(cfged)
     {
         sdt_int8u i;
@@ -413,6 +352,14 @@ mbk_trans_mon_def mde_pull_mbus_transmit_monitor(sdt_int8u in_solid_number)
 //------------------------------------------------------------------------------
 void push_mbus_one_receive_byte(sdt_int8u in_solid_number,sdt_int8u in_rx_byte)
 {
+    if(cfged)
+    {
+    }
+    else
+    {
+        cfged = sdt_true;
+        mbslk_solid_cfg();
+    }
     if(in_solid_number < max_solid)
     {
         mbslk_oper_solid[in_solid_number].mbslk_bits |= mbslk_bits_rx_byte;

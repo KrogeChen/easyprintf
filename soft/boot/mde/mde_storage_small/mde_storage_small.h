@@ -45,7 +45,7 @@
 //
 //出口:错误代码,00未发送错误，0x01 map错误,0x02 inf错误
 //------------------------------------------------------------------------------
-sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_int8u in_maxBytes);
+sdt_int8u mde_read_storage_inf(sdt_int8u *pOut_inf,sdt_int8u *pOut_infVer,sdt_int16u in_maxBytes);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //名称: 写入信息序列数据
 //功能: 

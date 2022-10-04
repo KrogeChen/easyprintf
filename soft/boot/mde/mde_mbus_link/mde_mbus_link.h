@@ -5,22 +5,28 @@
     #include ".\depend\snail_data_types.h"
 #endif
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define preamble_len         3
-#define max_payload_len      136
-#define TX_PAYLOD_LEN        8
+//------------------------------------------------------------------------------
+#define PREABBLE_LEN         3
+#define RX_IDX_OFFSET        PREABBLE_LEN//RX接收起始索引
+#define MAX_PAYLOAD_LEN      136//2byt(mark)+134(file upgrade)
+#define MAX_RXD_LEN          (MAX_PAYLOAD_LEN + 13)
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 typedef union
 {
     struct
     {
-        sdt_int8u      meter_type;                 //仪表类型
-        sdt_int8u      meter_addr[7];              //仪表地址
-        sdt_int8u      control_code;               //控制码
-        sdt_int8u      payload_len;                //数据长度
-        sdt_int8u      payload[max_payload_len];   //数据内容      
+        sdt_int8u      preamble[PREABBLE_LEN];         //前导
+        sdt_int8u      syb_fsd;                        //0x68
+        sdt_int8u      meter_type;                     //仪表类型
+        sdt_int8u      meter_addr[7];                  //仪表地址
+        sdt_int8u      control_code;                   //控制码
+        sdt_int8u      payload_len;                    //数据长度
+        sdt_int8u      payload[MAX_PAYLOAD_LEN];       //数据内容     
+        sdt_int8u      syb_checksum;                   //CS
+        sdt_int8u      syb_eof;                        //0x16
     };
-    sdt_int8u raw_payload[max_payload_len+10];
+    sdt_int8u raw_payload[MAX_PAYLOAD_LEN+13+PREABBLE_LEN];
     
 }mbus_link_buff_def;;
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

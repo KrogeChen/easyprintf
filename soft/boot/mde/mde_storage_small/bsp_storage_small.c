@@ -152,7 +152,7 @@ void program_block_eeprom(sdt_int16u in_addr,sdt_int8u in_word_32bits)
 //入口:存储块序号，偏移位置
 //出口:读取的数据
 //------------------------------------------------------------------------------
-sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int8u in_offset)
+sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int16u in_offset)
 {
     if(0 == in_block)
     {
@@ -171,11 +171,22 @@ sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int8u in_offset)
 //------------------------------------------------------------------------------
 void bsp_write_eeMomery_bytes(STORAGE_EEF_DEF *mix_sto_eef)
 {
-    sdt_int8u i;
+    sdt_int16u i;
     sdt_int16u eeaddr_dst;
     sdt_int16u b8_size;
     sdt_int8u  b32_size;
     
+    b8_size = mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes + 1;
+    b32_size = b8_size/4;
+    if(0 != (b8_size%4))
+    {
+        b32_size += 1;
+    }
+    if(b32_size > MAX_EEBYTES/4)
+    {
+        return;
+    }
+
     if(0 == mix_sto_eef->in_block)
     {
         eeaddr_dst = FEE_ADDR0;
@@ -193,16 +204,7 @@ void bsp_write_eeMomery_bytes(STORAGE_EEF_DEF *mix_sto_eef)
         g_share.g_share_bf8[i + mix_sto_eef->in_eefMap_bytes] = mix_sto_eef->pIn_eefInf[i];
     }
     g_share.g_share_bf8[mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes] = mix_sto_eef->in_eefCs;
-    b8_size = mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes + 1;
-    b32_size = b8_size/4;
-    if(0 != (b8_size%4))
-    {
-        b32_size += 1;
-    }
-    if(b32_size > MAX_EEBYTES/4)
-    {
-        b32_size = MAX_EEBYTES/4;
-    }
+
     
     program_block_eeprom(eeaddr_dst,b32_size);
 }
@@ -214,11 +216,21 @@ void bsp_write_eeMomery_bytes(STORAGE_EEF_DEF *mix_sto_eef)
 //------------------------------------------------------------------------------
 void bsp_write_eeMomery_map(STORAGE_EEF_DEF *mix_sto_eef)
 {
-    sdt_int8u i;
+    sdt_int16u i;
     sdt_int16u eeaddr_src,eeaddr_dst;
     sdt_int16u b8_size;
     sdt_int8u  b32_size;
     
+    b8_size = mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes + 1;
+    b32_size = b8_size/4;
+    if(0 != (b8_size%4))
+    {
+        b32_size += 1;
+    }
+    if(b32_size > MAX_EEBYTES/4)
+    {
+        return;
+    }
     if(0 == mix_sto_eef->in_block)
     {
         eeaddr_dst = FEE_ADDR0;
@@ -241,16 +253,7 @@ void bsp_write_eeMomery_map(STORAGE_EEF_DEF *mix_sto_eef)
     }
     g_share.g_share_bf8[mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes] = mix_sto_eef->in_eefCs;
     
-    b8_size = mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes + 1;
-    b32_size = b8_size/4;
-    if(0 != (b8_size%4))
-    {
-        b32_size += 1;
-    }
-    if(b32_size > MAX_EEBYTES/4)
-    {
-        b32_size = MAX_EEBYTES/4;
-    }
+
     
     program_block_eeprom(eeaddr_dst,b32_size);
 }

@@ -91,9 +91,9 @@ void bsp_blockflash_cfg(void)
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//功能:eeprom 块编程代码，适用于STM8L052C6T6
+//功能:eeprom 块编程代码，适用于HC32L136K8TA
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-void program_block_eeprom(sdt_int16u in_addr)
+void program_block_eeprom(sdt_int16u in_addr,sdt_int8u in_word_32bits)
 {
     sdt_int8u i;
     sdt_int32u* pFlashaddr_dst;
@@ -129,7 +129,7 @@ void program_block_eeprom(sdt_int16u in_addr)
     }while(0x01 != M0P_FLASH->CR_f.OP);
 
     
-    for(i = 0;i < 32;i++)
+    for(i = 0;i < in_word_32bits;i++)
     {
         *pFlashaddr_dst = *pRam_src;
         //write_into_flash(pAddr,*in_pMap);
@@ -152,7 +152,7 @@ void program_block_eeprom(sdt_int16u in_addr)
 //入口:存储块序号，偏移位置
 //出口:读取的数据
 //------------------------------------------------------------------------------
-sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int8u in_offset)
+sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int16u in_offset)
 {
     if(0 == in_block)
     {
@@ -171,9 +171,22 @@ sdt_int8u bsp_read_eeMomery_byte(sdt_int8u in_block,sdt_int8u in_offset)
 //------------------------------------------------------------------------------
 void bsp_write_eeMomery_bytes(STORAGE_EEF_DEF *mix_sto_eef)
 {
-    sdt_int8u i;
+    sdt_int16u i;
     sdt_int16u eeaddr_dst;
+    sdt_int16u b8_size;
+    sdt_int8u  b32_size;
     
+    b8_size = mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes + 1;
+    b32_size = b8_size/4;
+    if(0 != (b8_size%4))
+    {
+        b32_size += 1;
+    }
+    if(b32_size > MAX_EEBYTES/4)
+    {
+        return;
+    }
+
     if(0 == mix_sto_eef->in_block)
     {
         eeaddr_dst = FEE_ADDR0;
@@ -192,7 +205,8 @@ void bsp_write_eeMomery_bytes(STORAGE_EEF_DEF *mix_sto_eef)
     }
     g_share.g_share_bf8[mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes] = mix_sto_eef->in_eefCs;
 
-    program_block_eeprom(eeaddr_dst);
+    
+    program_block_eeprom(eeaddr_dst,b32_size);
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -202,9 +216,21 @@ void bsp_write_eeMomery_bytes(STORAGE_EEF_DEF *mix_sto_eef)
 //------------------------------------------------------------------------------
 void bsp_write_eeMomery_map(STORAGE_EEF_DEF *mix_sto_eef)
 {
-    sdt_int8u i;
+    sdt_int16u i;
     sdt_int16u eeaddr_src,eeaddr_dst;
-
+    sdt_int16u b8_size;
+    sdt_int8u  b32_size;
+    
+    b8_size = mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes + 1;
+    b32_size = b8_size/4;
+    if(0 != (b8_size%4))
+    {
+        b32_size += 1;
+    }
+    if(b32_size > MAX_EEBYTES/4)
+    {
+        return;
+    }
     if(0 == mix_sto_eef->in_block)
     {
         eeaddr_dst = FEE_ADDR0;
@@ -227,6 +253,8 @@ void bsp_write_eeMomery_map(STORAGE_EEF_DEF *mix_sto_eef)
     }
     g_share.g_share_bf8[mix_sto_eef->in_eefMap_bytes + mix_sto_eef->in_eefInf_bytes] = mix_sto_eef->in_eefCs;
     
-    program_block_eeprom(eeaddr_dst);
+
+    
+    program_block_eeprom(eeaddr_dst,b32_size);
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

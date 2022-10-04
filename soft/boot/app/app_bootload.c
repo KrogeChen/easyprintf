@@ -103,7 +103,7 @@ void app_bootload_task(void)
     if(pbc_pull_timerIsCompleted(&timer_log))
     {
         pbc_reload_timerClock(&timer_log,1000);
-        pbc_easy_printf("boot");
+        pbc_easy_printf("EPF BOOT");
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
