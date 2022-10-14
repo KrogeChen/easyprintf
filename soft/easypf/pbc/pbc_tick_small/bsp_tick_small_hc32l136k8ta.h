@@ -167,6 +167,11 @@ void bsp_system_tick_cfg(void)
     M0P_GPIO->PA02_SEL = 0;
     M0P_GPIO->PADIR_f.PA02 = 0;  //output
     M0P_GPIO->PAOUT_f.PA02 = 0;    
+    
+    M0P_GPIO->PB02_SEL = 0;
+    M0P_GPIO->PB02_SEL = 0;
+    M0P_GPIO->PBDIR_f.PB02 = 0;  //LED
+    M0P_GPIO->PBOUT_f.PB02 = 0;    
     #endif
 
 //------------------------------------------------------------------------------
@@ -317,10 +322,13 @@ void TIM2_IRQHandler(void)
             if(epf_shift_reg & epf_shift_mask)
             {
                 M0P_GPIO->PAOUT_f.PA02 = 0;
+                M0P_GPIO->PBOUT_f.PB02 = 1; //LED
+                
             }
             else
             {
                 M0P_GPIO->PAOUT_f.PA02 = 1;
+                M0P_GPIO->PBOUT_f.PB02 = 0;
             }
             epf_shift_mask = epf_shift_mask >> 1;
         }        

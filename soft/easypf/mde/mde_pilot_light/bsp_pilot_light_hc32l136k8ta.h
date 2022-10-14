@@ -22,10 +22,10 @@ void bsp_pilot_light_cfg(void)
     M0P_SYSCTRL->PERI_CLKEN_f.GPIO = 1;
 //------------------------------------------------------------------------------
 
-    M0P_GPIO->PB02_SEL = 0;
-    M0P_GPIO->PB02_SEL = 0;
-    M0P_GPIO->PBDIR_f.PB02 = 0;  //output
-    M0P_GPIO->PBOUT_f.PB02 = 0;
+//    M0P_GPIO->PB02_SEL = 0;
+//    M0P_GPIO->PB02_SEL = 0;
+//    M0P_GPIO->PBDIR_f.PB02 = 0;  //output
+//    M0P_GPIO->PBOUT_f.PB02 = 0;
     
     //PC01，EPF指示
     M0P_GPIO->PC01_SEL = 0;
@@ -49,7 +49,7 @@ void bsp_pilot_light_lighten(sdt_int8u in_lamp_id)
     {
         case 0:
         {
-            M0P_GPIO->PBOUT_f.PB02 = 0;
+           // M0P_GPIO->PBOUT_f.PB02 = 0;
             break;
         }
         case 1:
@@ -81,7 +81,7 @@ void bsp_pilot_light_dark(sdt_int8u in_lamp_id)
     {
         case 0:
         {
-            M0P_GPIO->PBOUT_f.PB02 = 1;
+            //M0P_GPIO->PBOUT_f.PB02 = 1;
             break;
         }
         case 1:
