@@ -161,17 +161,6 @@ F 3 "http://www.icbase.com/pdf/SPX/SPX00480106.pdf" H 13525 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L kicad_symbol_general:Conn_01x02 J41
-U 1 1 6320724F
-P 14965 3700
-F 0 "J41" H 15045 3692 50  0000 L CNN
-F 1 "EPF" H 15045 3601 50  0000 L CNN
-F 2 "kicad_footprint_general:PhoenixContact_MCV_1,5_2-G-3.81_1x02_P3.81mm_Vertical" H 14965 3700 50  0001 C CNN
-F 3 "" H 14965 3700 50  0001 C CNN
-	1    14965 3700
-	1    0    0    -1  
-$EndComp
-$Comp
 L kicad_symbol_general:Q_NMOS_GSD Q40
 U 1 1 632079E8
 P 13895 2355
@@ -185,29 +174,29 @@ $EndComp
 $Comp
 L kicad_symbol_general:R_Small_US R45
 U 1 1 6320E24D
-P 13995 1855
-F 0 "R45" H 14063 1901 50  0000 L CNN
-F 1 "4.7k" H 14063 1810 50  0000 L CNN
-F 2 "kicad_footprint_general:R_0603_1608Metric" H 13995 1855 50  0001 C CNN
-F 3 "" H 13995 1855 50  0001 C CNN
-	1    13995 1855
+P 13995 1515
+F 0 "R45" H 14063 1561 50  0000 L CNN
+F 1 "470R" H 14063 1470 50  0000 L CNN
+F 2 "kicad_footprint_general:R_1206_3216Metric" H 13995 1515 50  0001 C CNN
+F 3 "" H 13995 1515 50  0001 C CNN
+	1    13995 1515
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	13995 1955 13995 2055
+	13995 1615 13995 1720
 $Comp
 L power:VCC #PWR0102
 U 1 1 63210789
-P 13995 1705
-F 0 "#PWR0102" H 13995 1555 50  0001 C CNN
-F 1 "VCC" H 14012 1878 50  0000 C CNN
-F 2 "" H 13995 1705 50  0001 C CNN
-F 3 "" H 13995 1705 50  0001 C CNN
-	1    13995 1705
+P 13995 1345
+F 0 "#PWR0102" H 13995 1195 50  0001 C CNN
+F 1 "VCC" H 14012 1518 50  0000 C CNN
+F 2 "" H 13995 1345 50  0001 C CNN
+F 3 "" H 13995 1345 50  0001 C CNN
+	1    13995 1345
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	13995 1705 13995 1755
+	13995 1345 13995 1415
 $Comp
 L kicad_symbol_general:R_Small_US R46
 U 1 1 632129DD
@@ -228,17 +217,6 @@ Wire Wire Line
 	14495 2055 14750 2055
 Text Label 14560 2055 0    50   ~ 0
 EPO
-$Comp
-L power:GND #PWR0103
-U 1 1 63215CCF
-P 14540 2155
-F 0 "#PWR0103" H 14540 1905 50  0001 C CNN
-F 1 "GND" H 14545 1982 50  0000 C CNN
-F 2 "" H 14540 2155 50  0001 C CNN
-F 3 "" H 14540 2155 50  0001 C CNN
-	1    14540 2155
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR0104
 U 1 1 63216D8C
@@ -267,8 +245,6 @@ Wire Wire Line
 	13595 2355 13695 2355
 Wire Wire Line
 	13395 2355 13195 2355
-Wire Wire Line
-	14540 2155 14750 2155
 $Comp
 L power:VCC #PWR0105
 U 1 1 63220DFF
@@ -317,8 +293,6 @@ F 3 "" H 14460 3700 50  0001 C CNN
 	1    14460 3700
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	14560 3700 14765 3700
 $Comp
 L power:GND #PWR0107
 U 1 1 63226174
@@ -330,8 +304,6 @@ F 3 "" H 14590 4005 50  0001 C CNN
 	1    14590 4005
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	14590 3800 14765 3800
 $Comp
 L power:VCC #PWR0108
 U 1 1 632279F6
@@ -427,17 +399,6 @@ Wire Wire Line
 Connection ~ 14060 3700
 Wire Wire Line
 	14060 3700 14360 3700
-$Comp
-L kicad_symbol_general:Conn_01x02 J40
-U 1 1 6320D348
-P 14950 2055
-F 0 "J40" H 15030 2047 50  0000 L CNN
-F 1 "TO EPF" H 15030 1956 50  0000 L CNN
-F 2 "kicad_footprint_general:PhoenixContact_MCV_1,5_2-G-3.81_1x02_P3.81mm_Vertical" H 14950 2055 50  0001 C CNN
-F 3 "" H 14950 2055 50  0001 C CNN
-	1    14950 2055
-	1    0    0    -1  
-$EndComp
 $Comp
 L kicad_symbol_general:R_Small_US R50
 U 1 1 63248D5A
@@ -3131,6 +3092,93 @@ NoConn ~ 10360 5800
 NoConn ~ 6600 5400
 Text Label 8830 6630 1    50   ~ 0
 LEM
-NoConn ~ -2345 6155
-NoConn ~ 18840 8005
+Wire Wire Line
+	14765 3900 14765 4105
+Text Label 14765 4105 1    50   ~ 0
+VCC
+$Comp
+L Connector:TestPoint T40
+U 1 1 6350B079
+P 14750 2055
+F 0 "T40" V 14704 2243 50  0000 L CNN
+F 1 "TestPoint" V 14795 2243 50  0000 L CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" H 14950 2055 50  0001 C CNN
+F 3 "~" H 14950 2055 50  0001 C CNN
+	1    14750 2055
+	0    1    1    0   
+$EndComp
+$Comp
+L kicad_symbol_general:LED_Small D41
+U 1 1 63582CAD
+P 13995 1820
+F 0 "D41" V 13945 1980 50  0000 C CNN
+F 1 "RED" V 14025 1980 50  0000 C CNN
+F 2 "kicad_footprint_general:LED_0603_1608Metric" V 13995 1820 50  0001 C CNN
+F 3 "side" V 13995 1820 50  0001 C CNN
+	1    13995 1820
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	13995 1920 13995 2055
+$Comp
+L kicad_symbol_general:1N5817 D24
+U 1 1 63727725
+P 7420 2270
+F 0 "D24" H 7420 2170 50  0000 C CNN
+F 1 "SS14" H 7405 2375 50  0000 C CNN
+F 2 "kicad_footprint_general:D_SMA" H 7420 2095 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 7420 2270 50  0001 C CNN
+	1    7420 2270
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7270 2270 7000 2270
+Wire Wire Line
+	7570 2270 7750 2270
+Wire Wire Line
+	7750 2270 7750 1840
+Connection ~ 7750 1840
+Text Label 7000 2270 0    50   ~ 0
+VUC
+$Comp
+L kicad_symbol_general:Conn_01x02 J23
+U 1 1 637A3CFF
+P 6800 2270
+F 0 "J23" H 6800 2370 50  0000 C CNN
+F 1 "PWU" H 6800 2070 50  0000 C CNN
+F 2 "kicad_footprint_general:PhoenixContact_MCV_1,5_2-G-3.81_1x02_P3.81mm_Vertical" H 6800 2270 50  0001 C CNN
+F 3 "" H 6800 2270 50  0001 C CNN
+	1    6800 2270
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 6381F2D3
+P 7100 2400
+F 0 "#PWR0103" H 7100 2150 50  0001 C CNN
+F 1 "GND" H 7105 2227 50  0000 C CNN
+F 2 "" H 7100 2400 50  0001 C CNN
+F 3 "" H 7100 2400 50  0001 C CNN
+	1    7100 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7000 2370 7100 2370
+Wire Wire Line
+	7100 2370 7100 2400
+Wire Wire Line
+	14560 3700 14765 3700
+Wire Wire Line
+	14590 3800 14765 3800
+$Comp
+L kicad_symbol_general:Conn_01x03 J41
+U 1 1 634CB67D
+P 14965 3800
+F 0 "J41" H 15045 3842 50  0000 L CNN
+F 1 "EPF" H 15045 3751 50  0000 L CNN
+F 2 "kicad_footprint_general:PhoenixContact_MCV_1,5_3-G-3.81_1x03_P3.81mm_Vertical" H 14965 3800 50  0001 C CNN
+F 3 "" H 14965 3800 50  0001 C CNN
+	1    14965 3800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
