@@ -3207,4 +3207,8 @@ Wire Wire Line
 Connection ~ 14350 2055
 Wire Wire Line
 	14680 2055 14775 2055
+Text Label 6460 4800 0    50   ~ 0
+Y_N
+Text Label 6470 4900 0    50   ~ 0
+Y_P
 $EndSCHEMATC
